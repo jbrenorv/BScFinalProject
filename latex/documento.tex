@@ -1,0 +1,122 @@
+\documentclass[        
+    a4paper,          % Tamanho da folha A4
+    12pt,             % Tamanho da fonte 12pt
+    chapter=TITLE,    % Todos os capitulos devem ter caixa alta
+    %section=TITLE,   % Todas as secoes devem ter caixa alta
+    oneside,          % Usada para impressao em apenas uma face do papel
+    english,          % Hifenizacoes em ingles
+    spanish,          % Hifenizacoes em espanhol
+    brazil            % Ultimo idioma eh o idioma padrao do documento
+]{abntex2}
+\input{preambulo}
+
+\trabalhoacademico{tccgraduacao}
+
+% Define se o trabalho é uma qualificação, coloque 'nao' para versão final do trabalho
+\ehqualificacao{nao}
+
+% Remove as bordas vermelhas e verdes do PDF gerado, coloque 'sim' para remover
+\removerbordasdohyperlink{sim} 
+
+% Adiciona a cor azul a todos os hyperlinks
+\cordohyperlink{nao}
+
+% Informação relacionadas ao trabalho
+\autor{João Breno Rodrigues Venancio}
+\titulo{Algoritmos de ordenação interna: uma análise teórica e empírica}
+\local{Fortaleza}
+\data{2026}
+
+% Informação sobre a IES
+\ies{Instituto Federal de Educação, Ciência e Tecnologia do Ceará}
+\iessigla{IFCE}
+\centro{\textit{Campus} Fortaleza}
+
+% Informação para TCC de Graduação
+\graduacaoem{Bacharelado em Engenharia de Computação} 
+\habilitacao{Bacharel} % Licenciado ou Bacharel
+\areadeconcentracaograduacao{Engenharia de Computação}
+
+% Data de Aprovação
+\dataaprovacao{\underline{\hspace*{1cm}}/\underline{\hspace*{1cm}}/\underline{\hspace*{1.2cm}}.}
+
+% Abreviaturas dos títulos acadêmicos
+
+% Especialista: Esp.
+% Mestre: Me.
+% Mestra: Ma.
+% Doutor: Dr.
+% Doutora: Dra.
+
+% Informação sobre o Orientador
+\orientador{Prof. Dr. Glauber Ferreira Cintra}
+\orientadories{Instituto Federal de Educação, Ciência e Tecnologia do Ceará}
+\orientadoriessigla{IFCE}
+\orientadorcentro{\textit{Campus} Fortaleza}
+\orientadorfeminino{nao} % Coloque 'sim' se for do sexo feminino
+
+% Informação sobre o Coorientador
+\coorientador{} % Deixe o nome do coorientador em branco para remover do documento
+\coorientadories{Instituto Federal de Educação, Ciência e Tecnologia do Ceará}
+\coorientadoriessigla{IFCE}
+\coorientadorcentro{\textit{Campus} Fortaleza}
+\coorientadorfeminino{sim} % Coloque 'sim' se for do sexo feminino
+
+% Informação sobre a banca
+% Membro da Banca Dois
+\membrodabancadois{Prof. Dr. Ronaldo Fernandes Ramos}
+\membrodabancadoisies{Instituto Federal de Educação, Ciência e Tecnologia do Ceará}
+\membrodabancadoisiessigla{IFCE}
+\membrodabancadoiscentro{\textit{Campus} Fortaleza}
+
+% Membro da Banca Três
+\membrodabancatres{Prof. Me. Lucas Silva de Souza}
+\membrodabancatresies{Instituto Federal de Educação, Ciência e Tecnologia do Ceará}
+\membrodabancatresiessigla{IFCE}
+\membrodabancatrescentro{\textit{Campus} Caucaia}
+
+% Informação Complementar sobre a banca
+\membrodabancaquatro{Membro da Banca Quatro}
+\membrodabancaquatrocentro{Centro de Ciências e Tecnologia - CCT}
+\membrodabancaquatroies{Universidade do Membro da Banca Quatro - SIGLA}
+\membrodabancacinco{Membro da Banca Cinco}
+\membrodabancacincocentro{Teste}
+\membrodabancacincoies{Universidade do Membro da Banca Cinco - SIGLA}
+\membrodabancaseis{Membro da Banca Seis}
+\membrodabancaseiscentro{}
+\membrodabancaseisies{Universidade do Membro da Banca Seis - SIGLA}
+
+\begin{document}	
+
+% Elementos pré-textuais
+\imprimircapa
+\imprimirfolhaderosto{}
+\imprimirfichacatalografica{elementos-pre-textuais/ficha-catalografica}
+\imprimirfolhadeaprovacao
+\imprimirdedicatoria{elementos-pre-textuais/dedicatoria}
+\imprimiragradecimentos{elementos-pre-textuais/agradecimentos}
+% \imprimirepigrafe{elementos-pre-textuais/epigrafe}
+\imprimirresumo{elementos-pre-textuais/resumo}
+\imprimirabstract{elementos-pre-textuais/abstract}
+\imprimirlistadefiguras
+\imprimirlistadetabelas
+% \imprimirlistadesiglas{elementos-pre-textuais/lista-de-siglas}
+% \imprimirlistadesimbolos{elementos-pre-textuais/lista-de-simbolos}
+\lstlistoflistings
+\clearpage
+\imprimirsumario
+
+% Elementos textuais
+\textual
+\input{elementos-textuais/00_introducao/00_introducao}
+\input{elementos-textuais/01_preliminares/00_preliminares}
+\input{elementos-textuais/02_metodos-inferiores/00_metodos-inferiores}
+\input{elementos-textuais/03_metodos-superiores/00_metodos-superiores}
+\input{elementos-textuais/04_ordenacao-em-tempo-linear/00_ordenacao-em-tempo-linear}
+\input{elementos-textuais/05_analise-empirica/00_analise-empirica}
+\input{elementos-textuais/06_conclusao/00_conclusao}
+
+% Elementos pós-textuais
+\bibliography{elementos-pos-textuais/referencias}
+
+\end{document}

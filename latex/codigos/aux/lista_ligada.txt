@@ -1,0 +1,4 @@
+typedef struct Celula {
+    int valor;
+    struct Celula *prox;
+} Celula;

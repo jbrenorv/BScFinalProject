@@ -1,0 +1,47 @@
+\section{Resultados}
+\begin{frame}{Resultados - Métodos inferiores}
+    \only<1>{
+        \centering
+        Tamanho [$10^4$, $10^5$] $\times$ Tempo (s)\\[10pt]
+        \includegraphics[width=\linewidth]{figuras/inferiores.tempo.pdf}
+    }
+\end{frame}
+
+\begin{frame}{Resultados - Métodos superiores}
+    \only<1>{
+        \centering
+        Tamanho [$10^4$, $10^7$] $\times$ Tempo (s)\\[10pt]
+        \includegraphics[width=\linewidth]{figuras/superiores1e7.tempo.pdf}
+    }
+    \only<2>{
+        \centering
+        Tamanho [$10^4$, $10^8$] $\times$ Tempo (s)\\[10pt]
+        \includegraphics[width=\linewidth]{figuras/superiores1e8.tempo.pdf}
+    }
+    \only<3>{
+        \centering
+        Falhas de leitura no cache L3\\
+        \includegraphics[width=.9\linewidth]{figuras/superiores_DLmr.pdf}
+    }
+    \only<4>{
+        \centering
+        \includegraphics[width=.9\linewidth]{figuras/hibridos.pdf}
+    }
+\end{frame}
+
+\begin{frame}{Resultados - Métodos lineares}
+    \only<1>{
+        \centering
+        \includegraphics[width=.9\linewidth]{figuras/lineares.pdf}
+    }
+    \only<2>{
+        \centering
+        Falhas de leitura no cache L3\\
+        \includegraphics[width=.9\linewidth]{figuras/lineares_DLmr.pdf}
+    }
+    \only<3>{
+        \centering
+        Falhas de escrita no cache L3\\
+        \includegraphics[width=.9\linewidth]{figuras/lineares_DLmw.pdf}
+    }
+\end{frame}

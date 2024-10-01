@@ -1,0 +1,26 @@
+void RadixsortC(int n, int *v) {
+    int maior_el = MaxEl(n, v);
+    int *cont = AlocaVetor(10);
+    int *v_aux = AlocaVetor(n);
+    for (int p = 1; maior_el / p > 0; p *= 10) {
+        for (int i = 0; i < 10; i++) {
+            cont[i] = 0;
+        }
+        for (int i = 0; i < n; i++) {
+            cont[Digito(v[i], p)]++;
+        }
+        for (int i = 1; i < 10; i++) {
+            cont[i] += cont[i - 1];
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            int j = Digito(v[i], p);
+            v_aux[cont[j] - 1] = v[i];
+            cont[j]--;
+        }
+        for (int i = 0; i < n; i++) {
+            v[i] = v_aux[i];
+        }
+    }
+    free(cont);
+    free(v_aux);
+}

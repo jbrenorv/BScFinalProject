@@ -1,0 +1,85 @@
+\section{Coleta de dados}
+\begin{frame}{Coleta de dados}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{itemize}
+                \item<1-> Computador
+                \item<2-> Tipos de vetores
+                \item<3-> Tamanhos
+                \item<4-> Dados coletados
+                \item<5-> Ferramentas
+                \item<6-> Uso do cache
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.6\textwidth}
+            \only<1>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{ll}
+                    \hline
+                    \textbf{Componente} & \textbf{Produto/Cap.} \\
+                    \hline
+                    Modelo      & Avell A65i      \\
+                    Processador & Intel® Core™ i9 \\
+                    Cache       & 36 MB           \\
+                    Memória     & 64.0 GB         \\
+                    \hline
+                    \end{tabular}
+                \end{table}
+            }
+            \only<2>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{ll}
+                    \hline
+                    \textbf{Tipo} & \textbf{Disposição} \\
+                    \hline
+                    1       & Crescente       \\
+                    2       & Decrescente     \\
+                    3       & Pseudoaleatória \\
+                    \hline
+                    \end{tabular}
+                \end{table}
+            }
+            \only<3>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{c}
+                    37 tamanhos no intervalo [$10^4$, $10^8$] \\
+                    $\times$                                  \\
+                    3 tipos de vetores                        \\
+                    $\times$                                  \\
+                    3 execuções                               \\
+                    \end{tabular}
+                \end{table}
+            }
+            \only<4>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{l}
+                    \hline
+                    \textbf{Dado} \\
+                    \hline
+                    Número de comparações   \\
+                    Número de movimentações \\
+                    Tempo de execução       \\
+                    \hline
+                    \end{tabular}
+                \end{table}
+            }
+            \only<5>{
+                \centering
+                \includegraphics[width=.7\linewidth]{figuras/ferramentas.png}
+            }
+            \only<6>{
+                \centering
+                \includegraphics[width=.6\linewidth]{figuras/ferramentas_cache.png}
+            }
+        \end{column}
+    \end{columns}
+\end{frame}

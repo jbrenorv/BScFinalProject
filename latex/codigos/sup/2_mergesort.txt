@@ -1,0 +1,13 @@
+void Mergesort(int n, int *v) {
+    int *v_aux = AlocaVetor(n);
+    MergesortRec(0, n, v, v_aux);
+    free(v_aux);
+}
+void MergesortRec(int l, int r, int *v, int *v_aux) {
+    if (l < r - 1) {
+        int m = (l + r) / 2;
+        MergesortRec(l, m, v, v_aux);
+        MergesortRec(m, r, v, v_aux);
+        Merge(l, m, r, v, v_aux);
+    }
+}

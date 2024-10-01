@@ -1,0 +1,9 @@
+void Selecao(int n, int *v) {
+    for (int i = 0; i < n - 1; i++) {
+        int j = i;
+        for (int k = i + 1; k < n; k++)
+            if (v[j] > v[k])
+                j = k;
+        if (j > i) Troca(v + i, v + j);
+    }
+}

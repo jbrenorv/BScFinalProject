@@ -1,0 +1,215 @@
+\section{Preliminares}
+Nesta seção, descreve-se o ambiente de desenvolvimento, indicando o hardware e o software utilizados na implementação dos algoritmos e na execução dos testes. Também é apresentada a organização do projeto em diretórios e arquivos. Além disso, são feitas definições necessárias para o melhor entendimento das seções seguintes. Por fim, descreve-se o que foi coletado e como essa coleta foi realizada.
+
+\subsection{Ambiente de desenvolvimento}
+Para a implementação dos algoritmos e execução dos testes foi utilizado o notebook descrito na Tabela \ref{tab:hardware-and-software}. Todos os algoritmos e funções auxiliares foram implementados com a linguagem de programação C. As linguagens de programação Bash e Python foram utilizadas de forma secundária para automatização dos testes e geração de gráficos, respectivamente. O hardware, software e versões utilizados são especificados na Tabela \ref{tab:hardware-and-software}.
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:hardware-and-software}Hardware e software utilizados.}
+    \begin{tabular}{ | c | l | l | }
+        \hline
+        Tipo                      & Componente                & Produto                          \\
+        \hline
+        \multirow{3}{*}{Hardware} & Modelo                    & Avell A65i                       \\
+                                  & Processador               & 13th Gen Intel® Core™ i9-13900HX \\
+                                  & Cache                     & 36 MB Intel® Smart Cache         \\
+                                  & Memória principal         & 64.0 GB                         \\
+        \hline
+        \multirow{4}{*}{Software} & Sistema operacional       & Linux Ubuntu 24.04.3 LTS         \\
+                                  & Editor de texto           & Microsoft Visual Studio Code     \\
+                                  & Compilador C              & GNU Compiler Collection GCC      \\
+                                  & Linguagens de programação & C, Bash e Python                 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Organização do código fonte}
+A imagem na Figura \ref{fig:projeto-ordenacao} ilustra a forma como código fonte do projeto foi organizado, enquanto que na Tabela \ref{tab:projeto-ordenacao} é dada uma breve descrição de cada arquivo.
+
+\begin{figure}[H]
+    \centering
+    \begin{forest}
+        for tree={font=\ttfamily, grow'=0,
+        folder indent=.9em, folder icons,
+        edge=densely dotted}
+        [
+            [graficos
+                [graficos.ipynb, is file]
+            ]
+            [scripts
+                [testes.sh, is file]
+            ]
+            [src
+                [main.c, is file]
+                [ordenacao.c, is file]
+                [ordenacao.h, is file]
+            ]
+            [.gitignore, is file]
+            [README.md, is file]
+        ]
+    \end{forest}
+    \vspace{3pt}
+    \Caption{\label{fig:projeto-ordenacao}Árvore de diretórios e arquivos do projeto.}
+    \Fonte{Elaborado pelo autor.}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:projeto-ordenacao}Descrição dos arquivos do projeto.}
+    \begin{tabular}{ | c | l | }
+        \hline
+        Arquivo        & Descrição                                                       \\
+        \hline
+        graficos.ipynb & Arquivo exportado do notebook criado no Google Colab            \\
+        testes.sh      & Implementa script em Bash para execução automatizada dos testes \\
+        main.c         & Implementa a função principal                                   \\
+        ordenacao.c    & Implementa os algoritmos de ordenação e funções utilitárias     \\
+        ordenacao.h    & Declara os protótipos dos algoritmos e funções utilitárias      \\
+        .gitignore     & Declara diretórios e arquivos que o Git deve ignorar            \\
+        README.md      & Documenta o projeto com instruções de execução dos testes       \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Tipos de vetores}
+Além do tamanho do vetor, a forma como os elementos estão dispostos inicialmente pode interferir no tempo e na quantidade de operações que cada algoritmo executa. Pensando nisso, com o objetivo de analisar como cada algoritmo se comporta para diferentes tipos de entrada, foram considerados três tipos de vetores nos testes, como mostrado na Tabela \ref{tab:tipos-de-vetores}.
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:tipos-de-vetores}Tipos de vetores a serem aplicados.}
+    \begin{tabular}{ | c | l | }
+        \hline
+        Tipo   & Descrição                                \\
+        \hline
+        1      & Vetores já ordenados em ordem crescente  \\
+        2      & Vetores ordenados em ordem decrescente   \\
+        3      & Vetores gerados de forma pseudoaleatória \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Dados coletados}
+Esta seção visa apenas apresentar e definir quais dados foram coletados. A próxima seção descreve com mais detalhes como a coleta foi realizada. Para cada combinação de algoritmo, tamanho e tipo de vetor, foi registrado o número de comparações, o número de movimentações e o tempo de execução. Essas três métricas são definidas na Tabela \ref{tab:dados-coletados}.
+
+Obter essas informações de cada algoritmo é importante para sabermos na prática como eles se comportam para diferentes configurações de entrada. Por exemplo, um algoritmo que executa muitas movimentações pode não ser adequado em um cenário em que mudar os registros de posição seja uma operação muito lenta.
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:dados-coletados}Dados coletados e suas definições.}
+    \begin{tabular}{ | c | l | }
+        \hline
+        Dado                    & Definição                                                     \\
+        \hline
+        Número de comparações   & \makecell[l]{Uma comparação ocorre quando um elemento do      \\
+                                               vetor é comparado com outro elemento do vetor ou \\
+                                               com outra variável do programa}                  \\
+        Número de movimentações & \makecell[l]{Uma movimentação ocorre sempre que um valor é    \\
+                                               atribuído a um elemento do vetor ou um elemento  \\
+                                               do vetor é atribuído a uma outra variável}       \\
+        Tempo de execução       & \makecell[l]{Tempo decorrido entre o início e o fim da        \\
+                                               execução do algoritmo em segundos}               \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Metodologia de coleta}
+\subsubsection{Entrada}
+A função principal é o ponto de entrada para qualquer programa escrito em linguagem de C. De uma forma mais técnica, ao compilar e linkar o código fonte do projeto, obtém-se um arquivo binário executável que, ao ser executado, invoca a função principal para iniciar a execução do processo. Essa função recebe dois argumentos quando invocada. O primeiro é um número inteiro comumente chamado de argc, que indica a quantidade de parâmetros recebidos. Já o segundo é uma lista de vetores de caracteres comumente chamado de argv, que são os parâmetros em si. O primeiro parâmetro é sempre o nome do arquivo executável ou o caminho absoluto até ele. Na Tabela \ref{tab:main-parametros} é indicado os parâmetros adicionais esperados.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:main-parametros}Parâmetros da função principal.}
+    \begin{tabular}{ | c | l | }
+        \hline
+        Posição (argv) & Parâmetro esperado                                      \\
+        \hline
+        0              & Nome ou caminho para o arquivo executável               \\
+        1              & Nome do arquivo onde devem ser escrito os resultados    \\
+        2              & Número representando o tamanho do vetor                 \\
+        3              & Número igual a 1, 2 ou 3, representando o tipo do vetor \\
+        4              & Número representando número da execução                 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+O último parâmetro, que indica o número da execução, é explicado na subseção \ref{subsection:Testes}, que apresenta como os testes foram executados.
+
+\subsubsection{Processamento}
+O processamento consiste na execução sequencial das etapas necessárias para realizar os experimentos definidos neste trabalho. O pseudocódigo apresentado a seguir oferece uma visão de alto nível do fluxo executado pela função principal, desde a leitura dos parâmetros de entrada até o registro dos resultados obtidos. Optou-se por essa forma de apresentação para destacar a lógica geral do procedimento e evitar a exibição detalhada de trechos de código que não contribuem significativamente para a compreensão do funcionamento do sistema.
+
+\begin{algorithm}[H]
+    \Caption{Função principal}\label{alg-main:cap}
+    \DontPrintSemicolon
+    \Entrada{A tupla $(S, N, T, E)$ representado os parâmetros listados na Tabela \ref{tab:main-parametros}}
+    \Inicio{
+        $F \gets$ Abre arquivo $S$\;
+        $O \gets$ Aloca vetor de tamanho $N$ com valores de acordo com o tipo $T$\;
+        $V \gets$ Aloca vetor de tamanho $N$\;
+        $L \gets$ Cria lista de pares de algoritmos\footnote{O primeiro elemento é o algoritmo original e o segundo é a versão modificada para obter o número de comparações e movimentações.}\;
+        \Para{cada par $(A, A') \in L$}{
+            $V \gets$ Cópia de $O$\;
+            $t \gets$ Executa $A$ em $V$\footnote{Obtendo o tempo de execução $t$ em segundos.}\;
+            $V \gets$ Cópia de $O$\footnote{Neste ponto $V$ está ordenado, então é necessário resetar para o vetor original.}\;
+            $(c, m) \gets$ Executa $A'$ em $V$\footnote{Obtendo o número de comparações $c$ e movimentações $m$.}\;
+            Adiciona em $F$ uma linha com os resultados\footnote{Precisamente, a linha contém o nome do algoritmo, o tamanho do vetor, o tipo do vetor, o número da execução, o número de comparações, o número de movimentações e o tempo de execução.}\;
+        }
+        Libera a memória alocada e fecha o arquivo $F$\;
+    }
+\end{algorithm}
+
+\subsubsection{Exemplo de saída}
+Se após compilar e linkar o código C, o arquivo executável resultante se chamar a.out, o comando a ser executado a partir de um Terminal Linux, aberto no mesmo diretório do executável, poderia ser, por exemplo:
+\lstinputlisting[language=bash, nolol]{codigos/aux/_bash.txt}
+Neste caso, seria gerado um vetor de forma pseudoaleatória (tipo 3) de tamanho 1000 e os resultados seriam escritos no arquivo saida.csv. Com exceção do cabeçalho, o conteúdo do arquivo saida.csv é representado na Tabela \ref{tab:exemplo-saida}. Além disso, a coluna do tempo pode conter valores diferentes.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:exemplo-saida}Exemplo de saída.}
+    \begin{tabular}{ | c | l | l | l | l | l | l | }
+        \hline
+        Algo.        & Tam. & Tipo & Exec. & Comp.  & Movi.  & Tempo (s) \\
+        \hline
+        Bolha        & 1000 & 2    & 1     & 499497 & 770538 & 0.004037  \\
+        Coquetel     & 1000 & 2    & 1     & 388815 & 770538 & 0.003501  \\
+        Selecao      & 1000 & 2    & 1     & 499500 & 2958   & 0.000543  \\
+        Insercao     & 1000 & 2    & 1     & 257838 & 258844 & 0.000163  \\
+        Shellsort    & 1000 & 2    & 1     & 13061  & 20296  & 0.000111  \\
+        Mergesort    & 1000 & 2    & 1     & 8717   & 19302  & 0.000098  \\
+        Heapsort     & 1000 & 2    & 1     & 8772   & 14040  & 0.000104  \\
+        Quicksort    & 1000 & 2    & 1     & 10345  & 20325  & 0.000103  \\
+        QuicksortI   & 1000 & 2    & 1     & 12107  & 17646  & 0.000072  \\
+        Introsort    & 1000 & 2    & 1     & 14047  & 9620   & 0.000078  \\
+        Countingsort & 1000 & 2    & 1     & 0      & 2000   & 0.155960  \\
+        Bucketsort   & 1000 & 2    & 1     & 1050   & 4050   & 0.000037  \\
+        RadixsortC   & 1000 & 2    & 1     & 0      & 18000  & 0.000022  \\
+        RadixsortB   & 1000 & 2    & 1     & 0      & 45000  & 0.000034  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Testes}\label{subsection:Testes}
+Neste ponto o código implementado em linguagem C está pronto para ser invocado com diferentes parâmetros de entrada. Para automatizar este processo, foi criado um script em linguagem Bash. Este script segue os seguintes passos:
+\begin{enumerate}
+    \item Compilação do código C e inicialização do arquivo CSV de saída.
+    \item Geração dos tamanhos.
+    \item Três execuções para cada tamanho e tipo de vetor.
+\end{enumerate}
+
+Optou-se por realizar três execuções por tamanho e tipo de vetor para reduzir o impacto de variações ocasionais no tempo de execução, como pequenas flutuações no uso da CPU. Esse número foi escolhido por ser suficiente para obter uma média representativa sem tornar a coleta de dados muito demorada.
+
+Os tamanhos gerados são melhores descritos na Tabela \ref{tab:tamanhos}. Foram considerados ao todo $37$ tamanhos entre $10^4$ e $10^8$, inclusive. Além disso, cada tamanho foi usado três vezes para cada um dos três tipos, totalizando $333$ chamadas aos algoritmos.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:tamanhos}Geração de tamanhos.}
+    \begin{tabular}{ | c | l | l | l | c | }
+        \hline
+        \multicolumn{2}{ | c | }{Intervalo} & \multirow{2}{*}{Incremento} & \multirow{2}{*}{Subtotal} & \multirow{2}{*}{Total} \\
+        \cline{1-2}
+        Início     & Fim        &        &    &                     \\
+        \hline
+        $10^4$     & $10^5 - 1$ & $10^4$ & 9  & \multirow{4}{*}{37} \\
+        $10^5$     & $10^6 - 1$ & $10^5$ & 9  &                     \\
+        $10^6$     & $10^7 - 1$ & $10^6$ & 9  &                     \\
+        $10^7$     & $10^8$     & $10^7$ & 10 &                     \\
+        \hline
+    \end{tabular}
+\end{table}

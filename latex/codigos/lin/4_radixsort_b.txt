@@ -1,0 +1,31 @@
+void RadixsortB(int n, int *v) {
+    Celula **celula = (Celula**) malloc( n * sizeof(Celula*));
+    Celula **bucket = (Celula**) malloc(10 * sizeof(Celula*));
+    int maior_el = MaxEl(n, v);
+    for (int i = 0; i < 10; i++) {
+        bucket[i] = NULL;
+    }
+    for (int i = 0; i < n; i++) {
+        celula[i] = (Celula *) malloc(sizeof(Celula));
+        celula[i]->prox = NULL;
+    }
+    for (int p = 1; maior_el / p > 0; p *= 10) {
+        for (int i = n - 1; i >= 0; i--) {
+            int j = Digito(v[i], p);
+            celula[i]->valor = v[i];
+            celula[i]->prox = bucket[j];
+            bucket[j] = celula[i];
+        }
+        for (int i = 0, k = 0; i < 10; i++) {
+            while (bucket[i] != NULL) {
+                v[k++] = bucket[i]->valor;
+                bucket[i] = bucket[i]->prox;
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        free(celula[i]);
+    }
+    free(celula);
+    free(bucket);
+}

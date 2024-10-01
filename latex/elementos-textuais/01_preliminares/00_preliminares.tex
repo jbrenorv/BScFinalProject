@@ -1,0 +1,97 @@
+\chapter{Preliminares}\label{cap:preliminares}
+Este capítulo está organizado em quatro seções e aborda alguns conceitos que serão utilizados nos capítulos seguintes, tais como, ordenação estável, análise assintótica e a hierarquia e o uso das diferentes memórias presentes em um computador.
+
+\section{Ordenação interna e externa}
+A ordenação pode ser classificada em dois tipos principais: interna e externa, dependendo da forma como os dados são manipulados durante o processo de ordenação.
+
+Ordenação interna ocorre quando todos os dados a serem ordenados cabem na memória principal do computador (RAM). Esse tipo de ordenação é amplamente utilizado em cenários onde o volume de dados é relativamente pequeno e o acesso rápido à memória permite um desempenho eficiente.
+
+Ordenação externa, por outro lado, é aplicada quando o volume de dados é tão grande que excede a capacidade da memória principal, necessitando do uso de memória secundária, como discos rígidos ou SSDs. Nesse caso, os algoritmos devem ser projetados para minimizar o número de acessos à memória secundária, que é consideravelmente mais lenta do que a memória principal. Exemplos incluem algoritmos de ordenação por blocos e Mergesort externo.
+
+Neste trabalho, o foco será exclusivamente na ordenação interna, abordando os principais algoritmos utilizados, suas características e desempenhos em diferentes cenários.
+
+\section{Ordenação estável}
+A ordenação é considerada estável quando preserva a ordem relativa dos elementos com chaves iguais na sequência de entrada. Em outras palavras, se dois elementos possuem a mesma chave e um deles aparece antes do outro na sequência original, um algoritmo de ordenação estável garantirá que essa ordem relativa seja mantida na sequência ordenada.
+
+A estabilidade em algoritmos de ordenação é especialmente importante em cenários onde os elementos possuem atributos adicionais além da chave utilizada para a ordenação. Por exemplo, em um sistema de gerenciamento de registros, onde cada registro é identificado por um nome e uma data, a estabilidade permite ordenar os registros primeiro por nome e, em seguida, por data, sem perder a ordem relativa estabelecida na primeira ordenação.
+
+Na Tabela \ref{tab:estabilidade} é apresentado os algoritmos que serão implementados neste trabalho e indica quais deles são estáveis:
+
+\begin{table}[!h]
+    \centering
+    \Caption{\label{tab:estabilidade}Estabilidade dos algoritmos apresentados.}
+    \begin{tabular}{ | c | l |  }
+    \hline
+    Algoritmo    & Estável    \\
+    \hline
+    Bolha        & \checkmark \\
+    Coquetel     & \checkmark \\
+    Selecao      &            \\
+    Insercao     & \checkmark \\
+    Shellsort    &            \\
+    Mergesort    & \checkmark \\
+    Heapsort     &            \\
+    Quicksort    &            \\
+    Countingsort & \checkmark \\
+    Bucketsort   & \checkmark \\
+    RadixsortC   & \checkmark \\
+    RadixsortB   & \checkmark \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\section{Análise teórica de algoritmos}
+Esta seção define a notação assintótica e a cota inferior, dois termos que serão utilizados ao longo do trabalho e que constituem a base para a análise teórica dos algoritmos. Além disso, é feita uma breve introdução à probabilidade e ao valor esperado, pois esses são conceitos necessários para a análise da versão proposta do Quicksort.
+
+\subsection{Notação assintótica}
+A Notação Assintótica é um conjunto de ferramentas matemáticas utilizada na análise de algoritmos para descrever o comportamento limitante ou de crescimento de uma função à medida que o tamanho da entrada se aproxima do infinito. Seu propósito principal é fornecer uma forma de classificar e comparar a eficiência de algoritmos, focando apenas na ordem de magnitude do tempo ou espaço consumido e ignorando constantes de proporcionalidade e termos de ordem inferior. Ao expressar a complexidade de tempo de um algoritmo, a notação assintótica permite prever como o algoritmo escalará em grandes volumes de dados, independentemente de detalhes de implementação ou da velocidade específica do hardware.
+
+Definir a complexidade de um algoritmo exige o uso de notações assintóticas precisas para delimitar seu comportamento. A notação \bigO{f(n)} fornece um limite superior para complexidade de um algoritmo, seja ela temporal ou espacial, descrevendo o pior caso. Ela significa que, para valores grandes de entrada $n$, a complexidade nunca será pior do que uma função $c \cdot f(n)$, onde $c$ é uma constante positiva e $f(n)$ é a função de crescimento. Já a notação $\Theta(f(n))$ fornece um limite assintótico apertado, definindo o comportamento exato da complexidade de um algoritmo. Isso significa que, para $n$ grande, a complexidade está limitado superior e inferiormente por múltiplos constantes de $f(n)$, indicando que $f(n)$ é a ordem de crescimento precisa, tanto no melhor quanto no pior caso.
+
+\subsection{Cota inferior}\label{subsec:cota-inferior}
+Cota inferior define o limite mínimo de desempenho necessário para resolver um problema. Isso significa que nenhum algoritmo pode resolver o problema em menos tempo do que a cota inferior definida, independentemente da abordagem utilizada. A notação usada para descrever a cota inferior é a notação $\Omega(f(n))$.
+
+Para algoritmos de ordenação baseados em comparação, a cota inferior é $\Omega(n\log_2n)$. Esse resultado demonstra que qualquer algoritmo de ordenação que utilize apenas comparações entre elementos, no pior caso, precisará de pelo menos $n\log_2n$ comparações para ordenar n elementos. Este limite foi provado por \cite{knuth1998art}, onde ele utiliza conceitos de árvores de decisão para demonstrar que a profundidade mínima da árvore que representa todas as permutações possíveis dos elementos é $\log_2(n!)$, o que se aproxima de $n\log_2n$ pela fórmula de Stirling.
+
+\subsection{Probabilidade e valor esperado}
+A probabilidade é a medida numérica da chance de um evento específico ocorrer, variando de zero (impossibilidade) a um (certeza), e é fundamental para modelar a incerteza. Já o valor esperado (ou esperança matemática) é uma medida que resume o resultado mais provável ou a média de longo prazo de um fenômeno aleatório. Ele é calculado ponderando-se cada resultado possível pelo seu respectivo valor de probabilidade, oferecendo uma estimativa útil para a tomada de decisões em cenários de risco, como jogos de azar ou análises financeiras.
+
+Esses dois conceitos matemáticos serão utilizados no próximo capítulo para a análise de complexidade da versão probabilística do algoritmo Quicksort.
+
+\section{Arquitetura de computadores}\label{sec:arquitetura}
+A análise de complexidade \bigO{f(n)} é fundamental, mas não é o único fator que determina o tempo de execução real. Em sistemas de computação modernos, a hierarquia de memória e o conceito de localidade de referência também ajudam a entender o desempenho.
+
+\subsection{Hierarquia de memória}
+O processador (CPU) interage com diferentes níveis de memória que variam drasticamente em velocidade de acesso e capacidade de armazenamento. Na Tabela \ref{tab:memory-hierarchy}, apresentada a seguir, é relacionado os tipos de memória com suas capacidades e velocidades. Como os valores exatos de capacidade e latência podem variar entre fabricantes e modelos, esta é uma classificação em alto nível que se mantém consistente, independentemente desses fatores.
+
+\begin{table}[!h]
+    \centering
+    \Caption{\label{tab:memory-hierarchy}Capacidade e velocidade de acesso por tipo de memória.}
+    \begin{tabular}{ | c | l | l |  }
+    \hline
+    Nível de memória             & Capacidade  & Velocidade de acesso\\
+    \hline
+    Registradores/L1 Cache       & Muito Baixa & Extremamente rápido \\
+    L2/L3 Cache                  & Baixa       & Muito rápido        \\
+    Memória principal (RAM)      & Alta        & Lento               \\
+    Memória secundária (SSD/HDD) & Muito Alta  & Muito lento         \\
+    \hline
+    \end{tabular}
+\end{table}
+
+O processador é muito rápido. Uma operação básica, como uma comparação ou soma, pode levar apenas um ciclo de clock. No entanto, quando ocorre uma falha de cache — isto é, quando se busca por um dado que não está no cache e precisa ser carregado da RAM — o processo pode custar dezenas ou até centenas de ciclos de clock. Desse modo, a velocidade de um algoritmo em um grande conjunto de dados é frequentemente limitada pelo tempo gasto esperando o acesso à memória, e não pelo número de operações da CPU
+
+
+\subsection{Localidade de referência}\label{subsec:localidade-referencia}
+Para mitigar o alto custo de acesso à RAM, os processadores utilizam um princípio chamado localidade de referência. Este princípio se refere à tendência de um programa de acessar o mesmo conjunto de locais de memória ou locais próximos em um curto período de tempo.
+
+\begin{itemize}
+    \item Localidade temporal: Se um item foi acessado, é provável que ele seja acessado novamente em breve.
+    \item Localidade espacial: Se um item foi acessado, é provável que os itens armazenados em endereços de memória próximos sejam acessados em breve.
+\end{itemize}
+
+A eficiência de cache é aumentada porque o cache opera em ``blocos'' ou ``linhas de cache'', geralmente de 64 bytes. Ou seja, quando um dado $v[i]$ não está no cache e a CPU precisa carregá-lo da RAM, ela não carrega apenas $v[i]$, mas sim um bloco inteiro que contém $v[i]$ e vários elementos adjacentes, como $v[i+1]$, $v[i+2]$, etc.
+
+Se um algoritmo seguir a localidade espacial, acessando sequencialmente $v[i]$, $v[i+1]$, $v[i+2]$, ele encontrará os próximos dados que precisa já carregados no cache. Assim, o custo de esperar a RAM é pago apenas uma vez para o bloco inteiro, o que torna o acesso subsequente, linear e sequencial quase instantâneo.
+
+Algoritmos que varrem grandes vetores de forma sequencial maximizam a Localidade Espacial e, por isso, são considerados ``cache-friendly''. Em contraste, algoritmos que ``pulam'' em endereços de memória dispersos desperdiçam o bloco de cache carregado e incorrem em muitas falhas de cache.

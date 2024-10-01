@@ -1,0 +1,26 @@
+\section{Bolha}
+O algoritmo Bolha é um dos algoritmos mais simples para o problema da ordenação. Ele consistem em percorrer várias vezes o vetor, comparando elementos adjacentes e trocando-os de posição caso estejam fora da ordem desejada. Nesse processo, os elementos flutuam para suas posições finais. Em outras palavras, ``[...]  os elementos da lista são movidos para as posições adequadas de forma contínua, assim como uma bolha move-se num líquido. Se um elemento está inicialmente numa posição i e, para que a lista fique ordenada, ele deve ocupar a posição j, então ele terá que passar por todas as posições entre i e j.'' \cite[p.8]{viana2011pesquisa}.
+
+\lstinputlisting[
+    language=C,
+    caption={Bolha},
+    label={alg:bolha}
+]{codigos/inf/1_bolha.txt}
+
+Esta versão do algoritmo Bolha é também conhecida como ``Bolha com Flag'', por conta do uso da variável \textit{trocou}. Perceba que, sem essa variável, o algoritmo continua funcionando da mesma forma; porém o laço externo executará sempre $n - 1$ iterações, mesmo que o vetor fique ordenado antes.
+
+Observe que o algoritmo Bolha oferece uma ordenação estável, pois, quando dois elementos adjacentes são iguais, eles não são trocados.
+
+\subsection*{Corretude}
+Ao final de uma iteração do laço externo, o maior elemento de $v[0..i]$ estará na posição $i$. Dessa forma, ao final da primeira iteração, o maior elemento do vetor estará na posição $n - 1$; ao final da segunda iteração, o segundo maior estará na posição $n - 2$, e assim por diante. Portanto, o algoritmo Bolha é correto.
+
+\subsection*{Desempenho}
+Em termos de consumo de memória adicional, o algoritmo declara apenas três variáveis escalares, sendo duas delas para controle de laço de repetição. Logo, sua complexidade espacial é $\Theta(1)$. Esta observação será omitida para os algoritmos apresentados a seguir que tenham a mesma complexidade espacial.
+
+Já para a complexidade temporal, o melhor caso ocorre quando a entrada já está ordenada em ordem crescente, pois não é realizada nenhuma troca. Exige-se, assim, apenas uma iteração do laço externo, resultando em complexidade $\Theta(n)$.
+
+Por outro lado, o pior caso ocorre quando o menor elemento está na última posição, sendo necessárias exatamente $n - 1$ iterações do laço externo para que ele chegue à primeira posição. Com isso, a quantidade de iterações do laço interno é dada pela seguinte equação:
+\begin{equation}\label{eq:1}
+    \sum_{i=1}^{n-1} i = \frac{n(n-1)}{2}
+\end{equation}
+Isso implica em uma complexidade quadrática $\Theta(n^2)$. Em média, a complexidade temporal do algoritmo Bolha também é $\Theta(n^2)$.

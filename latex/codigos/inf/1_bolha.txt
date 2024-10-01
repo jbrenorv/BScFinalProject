@@ -1,0 +1,11 @@
+void Bolha(int n, int *v) {
+    char trocou = 1;
+    for (int i = n - 1; i > 0 && trocou; i--) {
+        trocou = 0;
+        for (int j = 0; j < i; j++)
+            if (v[j] > v[j + 1]) {
+                Troca(v + j, v + j + 1);
+                trocou = 1;
+            }
+    }
+}

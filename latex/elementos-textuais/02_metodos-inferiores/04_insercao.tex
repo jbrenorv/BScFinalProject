@@ -1,0 +1,28 @@
+\section{Inserção}
+O algoritmo Inserção é um método de ordenação estável com o melhor desempenho entre os métodos inferiores. A ideia por trás do algoritmo é simples: para $i$ variando de $1$ a $n - 1$, nesta ordem, insira $v[i]$ em $v[0..i - 1]$, de modo que $v[0..i]$ esteja em ordem.
+
+Em especial, o algoritmo Inserção possui complexidade temporal linear para entradas quase ordenadas. Por conta disso, outros algoritmos fazem uso dele como sub-rotina. O Shellsort, por exemplo, utiliza o Inserção para tornar o vetor $h$-ordenado.
+
+\begin{definition}
+Para um dado número natural $h > 0$, um vetor $v$ de tamanho $n$ é considerado $h$-ordenado quando $v[i] \leq v[i + h]$, para todo $0 \leq i < n - h$.
+\end{definition}
+
+\lstinputlisting[
+    language=C,
+    caption={H-Ordena},
+    label={alg:h-ordena}
+]{codigos/aux/h-ordena.txt}
+
+A implementação do Inserção pode ser idêntica à função H\_Ordena mostrada acima, bastando fazer $h = 1$, pois, nesse caso em particular, um vetor $h$-ordenado é simplesmente um vetor ordenado.
+
+\lstinputlisting[
+    language=C,
+    caption={Inserção},
+    label={alg:insercao}
+]{codigos/inf/4_insercao.txt}
+
+\subsection*{Corretude}
+Ao final de cada iteração do laço externo, o segmento $v[0..i]$ está ordenado. Esse invariante permanece válido durante todas as iterações, inclusive na última. Portanto, ao final do processo, $v[0..n - 1]$ estará ordenado.
+
+\subsection*{Desempenho}
+No melhor caso, a complexidade é linear e ocorre quando o vetor já está ordenado, pois a condição do laço interno será sempre falsa. Já o pior caso acontece quando o vetor está em ordem decrescente; nesse cenário, $v[i]$ é sempre inserido na posição $0$. O ponto crítico é a linha 6 e, mais uma vez, a equação \ref{eq:1} determina a quantidade de vezes que essa linha será executada. Portanto, a complexidade no pior caso é $\Theta(n^2)$. Em média, o algoritmo Inserção consome tempo proporcional a $\Theta(n^2)$.

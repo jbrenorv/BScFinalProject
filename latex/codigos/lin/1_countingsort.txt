@@ -1,0 +1,20 @@
+void Countingsort(int n, int *v) {
+    int maior_el = MaxEl(n, v);
+    int *cont = AlocaVetorLimpo(maior_el + 1);
+    int *v_aux = AlocaVetor(n);
+    for (int i = 0; i < n; i++) {
+        cont[v[i]]++;
+    }
+    for (int i = 1; i <= maior_el; i++) {
+        cont[i] += cont[i - 1];
+    }
+    for (int i = n - 1; i >= 0; i--) {
+        v_aux[cont[v[i]] - 1] = v[i];
+        cont[v[i]]--;
+    }
+    for (int i = 0; i < n; i++) {
+        v[i] = v_aux[i];
+    }
+    free(cont);
+    free(v_aux);
+}

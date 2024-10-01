@@ -1,0 +1,54 @@
+\section{Quicksort}
+O Quicksort é um algoritmo de ordenação que provavelmente é o mais amplamente utilizado. A versão básica foi desenvolvida em 1960 por C. A. R. Hoare e, desde então, tem sido estudado por muitas pessoas. O Quicksort é popular porque não é difícil de implementar, é um bom algoritmo de ordenação de uso geral e, em muitos casos, consome menos recursos do que qualquer outro método de ordenação \cite[p.115, tradução nossa]{book:58781}.
+
+O algoritmo Quicksort é um método de ordenação não estável que funciona da seguinte maneira: particiona-se o vetor em dois segmentos, de modo que os menores elementos fiquem no primeiro e os maiores no segundo. Em seguida, o processo é repetido recursivamente em cada um dos segmentos, enquanto eles tiverem tamanho maior que um.
+
+A escolha de um elemento pivô define quais elementos são considerados menores e quais são considerados maiores. As estratégias para escolha do pivô, bem como o processo de particionamento, são apresentados a seguir.
+
+\subsection*{Particionamento}
+Existem versões básicas do Quicksort que definem como pivô um elemento localizado em um índice fixo do intervalo, como, por exemplo, sempre escolher um dos extremos. Essa estratégia pode levar à complexidade \bigO{n^2} para entradas que já estejam ordenadas, além de empilhar cerca de $n$ chamadas recursivas, o que pode causar um estouro de pilha. Contudo, a versão do Quicksort apresentada neste trabalho já incorpora algumas otimizações. A função Particiona, apresentada a seguir, escolhe o pivô de forma pseudoaleatória.
+
+\lstinputlisting[
+    language=C,
+    caption={Particiona},
+    label={alg:particiona}
+]{codigos/aux/particiona.txt}
+
+Na implementação da função Particiona mostrada acima, a função GeraNumeroAleatorioNoIntervalo utiliza a função \textit{rand}, presente na biblioteca padrão da linguagem C. O retorno da função Particiona é um índice $j$ tal que
+\[
+\begin{array}{ccc}
+    l \leq j \leq r & \text{ e } & 
+    \begin{cases}
+        v[j] = piv\hat{o}\\
+        v[k] \leq piv\hat{o}, & l \leq k < j \\
+        v[k] > piv\hat{o}, & j < k \leq r
+    \end{cases}
+\end{array}
+\]
+
+\subsection*{O algoritmo Quicksort}
+A implementação do algoritmo Quicksort apresentada a seguir é idêntica àquela encontrada em \cite[p.90]{book97338b4c}. Ela traz duas melhorias em relação à implementação básica. A primeira consiste em sempre tratar primeiro o menor dos segmentos gerados pela função Particiona, garantindo que a altura da pilha de recursão seja, no máximo, $\log_2 n$. A segunda é a eliminação de uma das chamadas recursivas, que é transformada em uma iteração.
+
+\lstinputlisting[
+    language=C,
+    caption={Quicksort},
+    label={alg:quicksort}
+]{codigos/sup/4_quicksort.txt}
+
+\subsection*{Desempenho}
+O pior caso do Quicksort tem complexidade $\Theta(n^2)$ e ocorre quando a função Particiona retorna sempre, ou quase sempre, um índice $j$ muito próximo de $l$ ou $r$. Isso acontece, por exemplo, quando todos os elementos do vetor são iguais. Já o melhor caso tem complexidade $\Theta(n\log_2 n)$ e ocorre quando $j$ está próximo do ponto médio entre $l$ e $r$ em todas as chamadas recursivas.
+
+Em média, a complexidade desta versão aleatorizada do Quicksort é proporcional a $\Theta(n\log_2 n)$. Esse resultado pode ser demonstrado por meio do cálculo do valor esperado do número de comparações realizadas na linha 5 da função Particiona, conforme apresentado em \cite[p.180–184]{Cormen2009}. Para isso, observe que a probabilidade de os elementos $v[i]$ e $v[j]$ serem comparados durante a execução do algoritmo é dada por:
+\[
+P_{ij} = \dfrac{2}{j - i + 1}
+\]
+Seja $X$ a variável aleatória que representa a quantidade total de comparações feitas. Assim, sendo $k = j - i$, o valor esperado de $X$ é:
+\[
+\begin{array}{c c l}
+    E[X] & = & \displaystyle\nsum_{i = 0}^{n - 2}\nsum_{j = i + 1}^{n - 1} \dfrac{2}{j - i + 1}\\[16pt]
+         & = & \displaystyle\nsum_{i = 0}^{n - 2}\nsum_{k = 1}^{n - i - 1} \dfrac{2}{k + 1}\\[16pt]
+         & < & \displaystyle\nsum_{i = 0}^{n - 2}\nsum_{k = 1}^{n} \dfrac{2}{k}\\
+         & < & 2(n - 1)\ln n\\
+         & = & \left(\dfrac{2(n - 1)}{\log_2 \mathrm{e}}\right)\log_2 n
+\end{array}
+\]

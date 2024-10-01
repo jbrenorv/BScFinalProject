@@ -1,0 +1,22 @@
+\section{Radixsort}
+O algoritmo Radixsort é um método de ordenação estável para números naturais, que funciona da seguinte maneira: dado um vetor de $n$ números naturais com $d$ dígitos cada, utiliza-se um algoritmo de ordenação estável para ordená-los pelo dígito menos significativo, depois pelo segundo menos significativo e assim por diante. O Radixsort depende da estabilidade do algoritmo auxiliar para garantir a correção do processo. Se existirem $k$ valores possíveis para cada dígito, e o algoritmo auxiliar ordenar em tempo proporcional a $\Theta(n + k)$, então o Radixsort terá complexidade $\Theta(d(n + k))$, ou seja, complexidade linear quando $d$ é constante.
+
+A seguir, são apresentadas as duas versões do Radixsort que foram implementadas: uma utilizando uma adaptação do algoritmo Countingsort e outra, uma adaptação do Bucketsort. Como o objetivo deste trabalho é simplesmente ordenar números naturais em base decimal, a função Digito(x, p), utilizada em ambas as versões, assume que $p = 10^r$ e retorna $\lfloor x / p \rfloor \mod 10$, ou seja, o dígito de $x$ que está na posição $r + 1$, da direita para a esquerda.
+
+\subsection*{Radixsort com Countingsort}
+A principal diferença em relação ao algoritmo Countingsort apresentado anteriormente é que o vetor de \textit{cont} possui apenas $10$ posições e armazena as ocorrências dos dígitos de $0$ a $9$, extraídos das posições indicadas por $p$ nos elementos do vetor $v$.
+
+\lstinputlisting[
+    language=C,
+    caption={Radixsort com Countingsort},
+    label={alg:radixsort_c}
+]{codigos/lin/3_radixsort_c.txt}
+
+\subsection*{Radixsort com Bucketsort}
+Em comparação com o algoritmo Bucketsort, a lista de buckets contém apenas $10$ posições, uma para cada valor possível de dígito. Por exemplo, se o dígito indicado por $p$ em $v[i]$ for igual a $5$, então $v[i]$ é colocado no bucket $5$. Observe que é suficiente inserir cada elemento diretamente no início de cada bucket, ou seja, como primeiro elemento da lista ligada, sem a necessidade de manter a lista ordenada.
+
+\lstinputlisting[
+    language=C,
+    caption={Radixsort com Bucketsort},
+    label={alg:radixsort_b}
+]{codigos/lin/4_radixsort_b.txt}

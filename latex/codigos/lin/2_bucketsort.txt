@@ -1,0 +1,22 @@
+void Bucketsort(int n, int *v) {
+    Celula **bucket = (Celula **) malloc(n * sizeof(Celula*));
+    int maior_el = MaxEl(n, v);
+    double t = ceil((maior_el + 1) / (double) n);
+    for (int i = 0; i < n; i++) {
+        bucket[i] = NULL;
+    }
+    for (int i = n - 1; i >= 0; i--) {
+        int j = (int) floor(v[i] / t);
+        InsereOrdenado(v[i], &bucket[j]);
+    }
+    for (int i = 0, k = 0; i < n; i++) {
+        Celula *atual = bucket[i];
+        while (atual != NULL) {
+            v[k++] = atual->valor;
+            Celula *temp = atual;
+            atual = atual->prox;
+            free(temp);
+        }
+    }
+    free(bucket);
+}

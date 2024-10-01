@@ -1,0 +1,67 @@
+\section{Algoritmos}
+\begin{frame}{Algoritmos}
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+            \begin{itemize}
+                \item<1-> Inferiores
+                \item<2-> Superiores
+                \item<3-> Lineares
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.7\textwidth}
+            \only<1>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{lcccl}
+                    \hline
+                    \textbf{Algoritmo} & \textbf{Caso médio} & \textbf{Estável} \\
+                    \hline
+                    Bolha    & $\Theta(n^2)$ & Sim \\
+                    Coquetel & $\Theta(n^2)$ & Sim \\
+                    Seleção  & $\Theta(n^2)$ & Não \\
+                    Inserção & $\Theta(n^2)$ & Sim \\
+                    \hline
+                    \end{tabular}
+                \end{table}
+            }
+            \only<2>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{lll}
+                    \hline
+                    \textbf{Algoritmo} & \textbf{Caso médio} & \textbf{Estável} \\
+                    \hline
+                    Shellsort  & $O(n\log n\log n)\ast$ & Não \\
+                    Mergesort  & $\Theta(n\log n)$      & Sim \\
+                    Heapsort   & $\Theta(n\log n)$      & Não \\
+                    Quicksort  & $\Theta(n\log n)$      & Não \\
+                    QuicksortI & $\Theta(n\log n)$      & Não \\
+                    Introsort  & $\Theta(n\log n)$      & Não \\
+                    \hline
+                    \end{tabular}
+                    \\[5pt]{\footnotesize\textit{$^{\ast}$Estimativa}}
+                \end{table}
+            }
+            \only<3>{
+                \begin{table}
+                    \centering
+                    \small
+                    \begin{tabular}{lcccl}
+                    \hline
+                    \textbf{Algoritmo} & \textbf{Caso médio} & \textbf{Estável} \\
+                    \hline
+                    Countingsort & $\Theta(n)\ast$ & Sim \\
+                    Bucketsort   & $\Theta(n)\ast$ & Sim \\
+                    RadixsortC   & $\Theta(n)\ast$ & Sim \\
+                    RadixsortB   & $\Theta(n)\ast$ & Sim \\
+                    \hline
+                    \end{tabular}
+                    \\[5pt]{\footnotesize\textit{$^{\ast}$Sob certas condições}}
+                \end{table}
+            }
+        \end{column}
+    \end{columns}
+\end{frame}

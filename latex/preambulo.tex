@@ -1,0 +1,184 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 				Customizações do abnTeX2 para o IFCE    			    %%%
+%%% 		Instituto Federal de Educação, Ciência e Tecnologia do Ceará    %%%
+%%% Template disponível em: https://github.com/clodomirneto/IFCETeX2	    %%%
+%%% Desenvolvedores do IFCETeX2: Professor Clodomir Silva Lima Neto		    %%%
+%%% 							 Professor Marcelo Araújo Lima              %%%
+%%%                              Professor Antonio Sergio de Sousa Vieira	%%%
+%%% E-mails para contato: clodomir.neto@ifce.edu.br						    %%%
+%%% 					  marcelo.alima@ifce.edu.br                         %%%
+%%%                       sergio.vieira@ifce.edu.br	                        %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Importações de pacotes
+\usepackage[utf8]{inputenc}                         % Acentuação direta
+\usepackage[T1]{fontenc}                            % Codificação da fonte em 8 bits
+\usepackage{graphicx}                               % Inserir figuras
+\usepackage{calc}
+\usepackage{svg}
+\usepackage{amsfonts,amssymb,amsmath}               % Fonte e símbolos matemáticos
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{booktabs}                               % Comandos para tabelas
+\usepackage{verbatim}                               % Texto é interpretado como escrito no documento
+\usepackage{multirow,array}                         % Múltiplas linhas e colunas em tabelas
+\usepackage{indentfirst}                            % Endenta o primeiro parágrafo de cada seção.
+\usepackage{listings}                               % Utilizar codigo fonte no documento
+\usepackage{xcolor}
+\usepackage{microtype}                              % Para melhorias de justificação?
+\usepackage[portuguese,ruled,lined]{algorithm2e}    % Escrever algoritmos
+\usepackage{amsgen}
+\usepackage{lipsum}                                 % Usar a simulação de texto Lorem Ipsum
+\usepackage{tocloft}                                % Permite alterar a formatação do Sumário
+\usepackage{etoolbox}                               % Usado para alterar a fonte da Section no Sumário
+\usepackage{caption}                                % Altera o comportamento da tag caption
+\usepackage[alf,abnt-emphasize=bf,bibjustif, recuo=0cm,abnt-etal-cite=3,abnt-etal-list=0,abnt-etal-text=it]{abntex2cite}  % Citações padrão ABNT
+\usepackage{mathptmx}                               % Usa a fonte Times New Roman		
+\usepackage{lscape}                                 % Permite páginas em modo "paisagem"
+\usepackage{pdflscape}
+\usepackage{appendix}                               % Gerar o apendice no final do documento
+\usepackage{paracol}                                % Criar paragrafos sem identacao
+\usepackage{ifcetex2}		                        % Biblioteca com as normas do IFCE para trabalhos academicos
+\usepackage{pdfpages}                               % Incluir pdf no documento
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{float}
+\usepackage{makecell}
+
+%TEOREMAS
+
+\newtheorem{proposition}{Proposição}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Lema}[chapter]
+\newtheorem{definition}{Definição}[chapter]
+\newtheorem{exemplo}{Exemplo}[chapter]
+\newtheorem{corollary}{Corolário}[chapter]
+\newtheorem{exercicio}{Exercício}[chapter]
+
+%PROVAS
+
+\newenvironment{prova}[1][Prova]{\noindent\textbf{#1.} }{\hfill\rule{0.5em}{0.5em}}
+\newenvironment{dem}[1][Demonstra\c c\~ao]{\noindent\textbf{#1.} }{\hfill\rule{0.5em}{0.5em}}
+\newenvironment{exm}{\noindent{\textbf{Exemplo:}}}{}
+
+% Alg
+\SetAlgorithmName{Pseudocódigo}{Pseudocódigos}{Lista de Pseudocódigos}
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{12pt}
+
+\renewcommand{\lstlistlistingname}{Lista de algoritmos}
+\renewcommand{\lstlistingname}{Algoritmo}
+
+\definecolor{back}{rgb}{0.,0.,0.}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{backcolorgray}{rgb}{0.95703125,0.95703125,0.95703125}
+
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegray},
+    keywordstyle=\bfseries,
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    frame=none,
+    framexleftmargin=2pt,
+}
+
+\lstset{style=mystyle}
+
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {ã}{{\~a}}1 {õ}{{\~o}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+}
+
+% \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+% \lstset{framextopmargin=50pt,frame=shadowbox}
+% \lstset{framextopmargin=50pt,frame=bottomline}
+
+\let\oldlstlistoflistings\lstlistoflistings
+\renewcommand{\lstlistoflistings}{%
+  \begingroup
+  \let\oldaddcontentsline\addcontentsline % Save the original \addcontentsline
+  \renewcommand{\addcontentsline}[3]{} % Redefine \addcontentsline to do nothing
+  \oldlstlistoflistings % Call the original \lstlistoflistings
+  \endgroup
+}
+\newcommand{\imprimirlistadecodigos}{
+	\lstlistoflistings
+	\pagebreak %
+}
+
+\newenvironment{courierfont}{\fontfamily{pcr}\selectfont}{\par}
+
+% Forest
+
+\usepackage[edges]{forest}
+
+\definecolor{foldercolor}{RGB}{124,166,198}
+
+\tikzset{pics/folder/.style={code={%
+    \node[inner sep=0pt, minimum size=#1](-foldericon){};
+    \node[folder style, inner sep=0pt, minimum width=0.3*#1, minimum height=0.6*#1, above right, xshift=0.05*#1] at (-foldericon.west){};
+    \node[folder style, inner sep=0pt, minimum size=#1] at (-foldericon.center){};}
+    },
+    pics/folder/.default={20pt},
+    folder style/.style={draw=foldercolor!80!black,top color=foldercolor!40,bottom color=foldercolor}
+}
+
+\forestset{is file/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
+        inner sep=1pt},
+    this folder size/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner xsep=0.7*#1},
+    folder tree indent/.style={before computing xy={l=#1}},
+    folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
+    folder icons/.default={12pt},
+}
+
+% resize sum [https://tex.stackexchange.com/a/81711]
+\newlength{\depthofsumsign}
+\setlength{\depthofsumsign}{\depthof{$\sum$}}
+\newlength{\totalheightofsumsign}
+\newlength{\heightanddepthofargument}
+
+\newcommand{\nsum}[1][1.4]{% only for \displaystyle
+    \mathop{%
+        \raisebox
+            {-#1\depthofsumsign+1\depthofsumsign}
+            {\scalebox
+                {#1}
+                {$\displaystyle\sum$}%
+            }
+    }
+}
+\newcommand{\resum}[1]{%
+    \def\s{#1}
+    \mathop{
+        \mathpalette\resumaux{#1}
+    }
+}
+
+\newcommand{\resumaux}[2]{% internally
+    \sbox0{$#1#2$}
+    \sbox1{$#1\sum$}
+    \setlength{\heightanddepthofargument}{\wd0+\dp0}
+    \setlength{\totalheightofsumsign}{\wd1+\dp1}
+    \def\quot{\DivideLengths{\heightanddepthofargument}{\totalheightofsumsign}}
+    \nsum[\quot]%
+}
+
+% http://tex.stackexchange.com/a/6424/16595
+\makeatletter
+\newcommand*{\DivideLengths}[2]{%
+  \strip@pt\dimexpr\number\numexpr\number\dimexpr#1\relax*65536/\number\dimexpr#2\relax\relax sp\relax
+}
+\makeatother
+
+% Big O notation
+% \newcommand\bigO[1]{$\mathcal{O}(#1)$}
+\newcommand\bigO[1]{$O(#1)$}
