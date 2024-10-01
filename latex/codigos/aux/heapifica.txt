@@ -1,0 +1,11 @@
+void Heapifica(int i, int n, int *v) {
+    int chave = v[i], j = 2 * i + 1;
+    while (j < n) {
+        if (j < n - 1 && v[j] < v[j + 1]) j++;
+        if (chave >= v[j]) break;
+        v[i] = v[j];
+        i = j;
+        j = 2 * j + 1;
+    }
+    v[i] = chave;
+}

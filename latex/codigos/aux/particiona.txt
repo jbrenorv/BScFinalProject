@@ -1,0 +1,11 @@
+int Particiona(int l, int r, int *v) {
+    Troca(v + r, v + GeraNumeroAleatorioNoIntervalo(l, r));
+    int pivo = v[r], j = l;
+    for (int i = l; i < r; i++)
+        if (v[i] <= pivo) {
+            Troca(v + j, v + i);
+            j++;
+        }
+    v[r] = v[j]; v[j] = pivo;
+    return j;
+}

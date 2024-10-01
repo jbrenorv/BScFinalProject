@@ -1,0 +1,9 @@
+void H_Ordena(int n, int h, int *v) {
+    int chave, j;
+    for (int i = h; i < n; i++) {
+        chave = v[i];
+        for (j = i; j >= h && v[j - h] > chave; j -= h)
+            v[j] = v[j - h];
+        v[j] = chave;
+    }
+}
