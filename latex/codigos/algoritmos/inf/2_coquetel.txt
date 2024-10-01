@@ -1,0 +1,14 @@
+void Coquetel(int n, int *v) {
+    char trocou = 1;
+    for (int i = 0, j = n - 1; i < j && trocou; i++, j--) {
+        trocou = 0;
+        for (int k = i; k < j; k++)
+            if (v[k] > v[k + 1])
+                Troca(v + k, v + k + 1), trocou = 1;
+        if (trocou) trocou = 0;
+        else return;
+        for (int k = j - 2; k >= i; k--)
+            if (v[k] > v[k + 1])
+                Troca(v + k, v + k + 1), trocou = 1;
+    }
+}

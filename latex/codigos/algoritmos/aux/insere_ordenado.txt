@@ -1,0 +1,13 @@
+void InsereOrdenado(int valor, Celula **balde) {
+    Celula *celula = CriaCelula(valor);
+    if (*balde == NULL || (*balde)->valor >= valor) {
+        celula->prox = *balde;
+        *balde = celula;
+    } else {
+        Celula *atual = *balde;
+        while (atual->prox && atual->prox->valor < valor)
+            atual = atual->prox;
+        celula->prox = atual->prox;
+        atual->prox = celula;
+    }
+}

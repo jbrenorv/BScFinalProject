@@ -1,0 +1,15 @@
+for (int i = 0; i < num_algoritmos; ++i) {
+    if (parametros.tamanho > algoritmos[i].tamanho_maximo)
+        continue;
+    CopiaVetor(parametros.tamanho, vetor_original, vetor);
+    Dados dados = ObterDados(parametros.tamanho, vetor, &algoritmos[i]);
+    fprintf(arquivo_saida, "%s,%i,%i,%i,%lli,%lli,%lf\n",
+        algoritmos[i].nome,
+        parametros.tamanho,
+        parametros.tipo,
+        parametros.execucao,
+        dados.comparacoes,
+        dados.movimentacoes,
+        dados.tempo_ms
+    );
+}

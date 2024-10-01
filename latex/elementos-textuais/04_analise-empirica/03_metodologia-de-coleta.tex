@@ -1,0 +1,131 @@
+\section{Metodologia de coleta de dados}
+\subsection{Função principal}
+A função principal é o ponto de entrada para qualquer programa escrito em linguagem de C. De uma forma mais técnica, ao compilar e linkar o código fonte do projeto, obtém-se um arquivo binário executável que, ao ser executado, invoca a função principal para iniciar a execução do processo. A seguir é apresentado o que a função principal espera como parâmetros de entrada, como é feito o processamento do algoritmos e, por fim, qual a saída produzida.
+
+\subsubsection{Entrada}
+A função principal recebe dois argumentos quando invocada. O primeiro é um número inteiro comumente chamado de argc, que indica a quantidade de parâmetros recebidos. Já o segundo é uma lista de vetores de caracteres comumente chamado de argv, que são os parâmetros em si. O primeiro parâmetro é sempre o nome do arquivo executável ou o caminho absoluto até ele. A tabela \ref{tab:main-parametros} indica os parâmetros adicionais esperados.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:main-parametros}Parâmetros da função principal}
+    \begin{tabular}{ c | l }
+        \hline
+        Posição (argv) & Parâmetro esperado\\
+        \hline
+        0              & Nome ou caminho para o arquivo executável\\
+        \hline
+        1              & Nome do arquivo onde deve ser escrito os resultados\\
+        \hline
+        2              & Número representando o tamanho do vetor\\
+        \hline
+        3              & Número igual a 1, 2 ou 3, representando o tipo do vetor\\
+        \hline
+        4              & Número representando número da execução\\
+        \hline
+    \end{tabular}
+\end{table}
+
+O último parâmetro, que indica o número da execução, é explicado na subseção \ref{subsection:Testes}, que apresenta como os testes foram realizados.
+
+\subsubsection{Processamento}
+Esta sessão mostra em detalhes cada passo que é executado quando a função principal é chamada. Antes de tudo, é necessário obter os parâmetros recebidos. Como todos os parâmetros são recebidos em forma de texto, uma função auxiliar foi criada para converter os parâmetros numéricos e armazenar na estrutura mostrada abaixo, além de fazer as validações necessárias. Em caso de recebimento de algum parâmetro inválido, o processo é finalizado com uma mensagem indicando o erro.
+\lstinputlisting[language=C]{funcoes-c/_resolve_parametros.txt}
+
+Neste ponto já se sabe o tamanho e o tipo do vetor que deve ser gerado. Como o mesmo vetor será ordenado por vários algoritmos de ordenação, foi alocado dois vetores. O primeiro foi chamado de ``vetor\_original'' e guardará a ordem inicial do vetor gerado. Já o segundo foi chamado simplesmente de ``vetor'' é o vetor que de fato será ordenado, sempre recebendo uma cópia do primeiro vetor antes de um novo algoritmo ser executado. 
+\lstinputlisting[language=C]{funcoes-c/_gera_vetor.txt}
+
+Todos os resultados obtidos nas execuções dos algoritmos devem ser salvos no arquivo de saída. Os testes que serão apresentados na subseção \ref{subsection:Testes} chamam o código C passando o mesmo nome de arquivo para saída. Dessa forma, este arquivo deve ser aberto em modo ``acrescentar'', como mostra o trecho de código abaixo.
+\lstinputlisting[language=C]{funcoes-c/_abrir_arquivo_saida.txt}
+
+Para facilitar a implementação do código que executa os algoritmos, foi criada uma estrutura que armazena o nome, o tamanho máximo, além de duas versões do mesmo.
+
+Limitar o tamanho dos vetores na qual um algoritmo pode ser aplicado, foi uma medida necessária, pois a análise teórica já mostrou que alguns algoritmos seriam mais lentos que outros. Sendo assim, os métodos inferiores podem ordenar vetores que tenham tamanho até $10^5$. Já para os métodos superiores e lineares de limite é $10^8$.
+
+A necessidade de uma versão extra para cada algoritmo, por sua vez, é justificada pelo fato de que a adição de instruções para contar comparações e movimentações poderia interferir no tempo de execução. Dessa forma, a primeira implementação é uma versão pura do algoritmo, usada para medir o tempo de execução, e a segunda contém linhas extras para contar as comparações e movimentações.
+\lstinputlisting[language=C]{funcoes-c/_algoritmos.txt}
+
+Não será apresentado todas as implementações dos algoritmos coletores, mas para exemplificar, o código a seguir mostra o Bolha\_CD, a vesão do algoritmo Bolha com instruções para contar as comparações e movimentação. O sufixo CD é uma abreviação apara ``Coletor de Dados''.
+\lstinputlisting[language=C]{funcoes-c/_bolha_cd.txt}
+
+Uma função utilitária foi criada para, dado um algoritmo, um vetor e seu tamanho, executar ambas as versões e retornar os dados coletados. Esta função é mostrada a seguir.
+\lstinputlisting[language=C]{funcoes-c/_obter_dados.txt}
+
+Optou‑se por medir o tempo de execução com clock\_gettime e o relógio CLOCK\_T-\\HREAD\_CPUTIME\_ID porque ele contabiliza exclusivamente o tempo de CPU consumido pela thread que executa o algoritmo, ignorando qualquer intervalo em que o processo seja preemptado pelo sistema ou aguarde operações de E/S. Desse modo, obtém‑se um valor preciso do esforço computacional real do algoritmo, livre de ruídos externos como tarefas de fundo do sistema operacional, variações de frequência da CPU ou atualizações do relógio de parede.
+
+Por fim, basta iterar sobre a lista de algoritmos chamando a função ObterDados e salvando as informações no arquivo de saída, como mostra o trecho de código abaixo.
+\lstinputlisting[language=C]{funcoes-c/_core.txt}
+
+\subsubsection{Exemplo de saída}
+Se após compilar e linkar código C, o arquivo executável resultante se chamar a.out, o comando a ser executado a partir de um Terminal Linux, aberto no mesmo diretório do executável, poderia ser, por exemplo:
+\lstinputlisting[language=bash]{funcoes-c/_bash.txt}
+Neste caso, seria gerado um vetor de forma pseudo-aleatória (tipo 3) de tamanho 1000 e os resultados seriam escritos no arquivo saida.csv. Com exceção do cabeçalho, o conteúdo do arquivo saida.csv é representado na tabela \ref{tab:exemplo-saida}. Além disso, a coluna do tempo pode conter valores diferentes.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:exemplo-saida}Exemplo de saída}
+    \begin{tabular}{ c | l | l | l | l | l | l }
+        \hline
+        Algo. & Tam. & Tipo & Exec. & Comp. & Movi. & Tempo (ms)\\
+        \hline
+        Bolha & 1000 & 3 & 1 & 499500 & 753576 & 0.612285\\
+        \hline
+        Bolha c/ F. & 1000 & 3 & 1 & 496419 & 753576 & 0.588512\\
+        \hline
+        Coquetel & 1000 & 3 & 1 & 381645 & 753576 & 0.567472\\
+        \hline
+        Selecao & 1000 & 3 & 1 & 499500 & 2961 & 0.310137\\
+        \hline
+        Insercao & 1000 & 3 & 1 & 252184 & 253190 & 0.096404\\
+        \hline
+        Shellsort & 1000 & 3 & 1 & 13255 & 20509 & 0.071559\\
+        \hline
+        Mergesort & 1000 & 3 & 1 & 8719 & 19311 & 0.045954\\
+        \hline
+        Quicksort & 1000 & 3 & 1 & 17809 & 33854 & 0.094331\\
+        \hline
+        Heapsort & 1000 & 3 & 1 & 16132 & 27195 & 0.044612\\
+        \hline
+        Contagem & 1000 & 3 & 1 & 999 & 2004 & 0.005061\\
+        \hline
+        Balde & 1000 & 3 & 1 & 2033 & 4038 & 0.049932\\
+        \hline
+        Radixsort C. & 1000 & 3 & 1 & 0 & 18000 & 0.051895\\
+        \hline
+        Radixsort B. & 1000 & 3 & 1 & 0 & 18000 & 0.157248\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Testes}\label{subsection:Testes}
+Neste ponto o código implementado em linguagem C está pronto para ser invocado com diferentes parâmetros de entrada. Para automatizar este processo, foi criado um script em linguagem Bash. Este script segue os seguintes passos:
+\begin{enumerate}
+    \item Compilação do código C e inicialização do arquivo CSV de saída.
+    \lstinputlisting[language=Bash]{funcoes-c/_bash_1.txt}
+    \item Geração do tamanhos.
+    \lstinputlisting[language=Bash]{funcoes-c/_bash_2.txt}
+    \item Três execuções para cada tamanho e tipo de vetor.
+    \lstinputlisting[language=Bash]{funcoes-c/_bash_3.txt}
+\end{enumerate}
+
+Optou-se por realizar três execuções por tamanho e tipo de vetor para reduzir o impacto de variações ocasionais no tempo de execução, como pequenas flutuações no uso da CPU. Esse número foi escolhido por ser suficiente para obter uma média representativa sem tornar a coleta de dados muito demorada.
+
+Os tamanhos gerados são melhores descritos na tabela \ref{tab:tamanhos}. Foram considerados ao todo 207 tamanhos entre $10^3$ e $10^8$, inclusive. Além disso, cada tamanho foi usado três vezes para cada um dos três tipos, totalizando 1863 chamadas aos algoritmos.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:tamanhos}Geração de tamanhos}
+    \begin{tabular}{ c | l | l | l | c }
+        \hline
+        \multicolumn{2}{c|}{Intervalo} & \multirow{2}{*}{Incremento} & \multirow{2}{*}{Subtotal} & \multirow{2}{*}{Total}\\
+        \cline{1-2}
+        Início     & Fim        &                 &    & \\
+        \hline
+        $10^3$     & $10^4 - 1$ & $5 \times 10^2$ & 18 & \multirow{5}{*}{207} \\
+        \cline{1-4}
+        $10^4$     & $10^5 - 1$ & $4 \times 10^3$ & 23 & \\
+        \cline{1-4}
+        $10^5$     & $10^6 - 1$ & $3 \times 10^4$ & 30 & \\
+        \cline{1-4}
+        $10^6$     & $10^7 - 1$ & $2 \times 10^5$ & 45 & \\
+        \cline{1-4}
+        $10^7$     & $10^8$     & $1 \times 10^6$ & 91 & \\
+        \hline
+    \end{tabular}
+\end{table}

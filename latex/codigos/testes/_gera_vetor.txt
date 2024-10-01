@@ -1,0 +1,7 @@
+// utils.h
+int *AlocaVetor(int tamanho);
+int *CriaVetor(int tamanho, Tipo tipo);
+
+// main.c
+int *vetor_original = CriaVetor(parametros.tamanho, parametros.tipo);
+int *vetor = AlocaVetor(parametros.tamanho);

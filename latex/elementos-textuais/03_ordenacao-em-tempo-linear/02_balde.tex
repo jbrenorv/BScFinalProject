@@ -1,0 +1,13 @@
+\section{Balde}
+O Balde é um algoritmo de ordenação descrito por John W. Tukey em 1944. Ele se baseia na distribuição dos elementos em diferentes grupos, chamados ``baldes'', cujos conteúdos são ordenados individualmente. Por fim, os baldes são concatenados, resultando em um vetor ordenado.
+
+\begin{figure}[H]
+\Caption{\label{fig:baldes2}Ilustração do intervalo correspondente a cada balde, em que $B_i$ representa o $i$-ésimo balde e $M$ é o maior elemento que pode existir no vetor.}
+\centering
+\includegraphics[scale=1.0]{figuras/pdf/baldes.pdf}
+\Fonte{Elaborado pelo autor.}
+\end{figure}
+
+Caso os elementos do vetor de entrada estejam distribuídos de forma uniforme no intervalo $[0, M]$, é esperado que cada balde contenha uma quantidade constante de elementos, de modo que o algoritmo Balde execute em tempo linear. No entanto, não se sabe previamente quantos elementos cada balde armazenará durante a execução. Por isso, cada balde foi implementado como uma estrutura de crescimento dinâmico, utilizando listas ligadas. Além disso, o método InsereOrdenado foi desenvolvido de forma semelhante ao algoritmo Insercao.
+
+\lstinputlisting[language=C]{codigos/algoritmos/lin/2_balde.txt}

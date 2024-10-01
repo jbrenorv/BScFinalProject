@@ -1,0 +1,15 @@
+void Quicksort(int n, int *v) {
+    QuicksortRec(0, n - 1, v);
+}
+void QuicksortRec(int l, int r, int *v) {
+    while (l < r) {
+        int i = Particiona(l, r, v);
+        if (i - l < r - i) {
+            QuicksortRec(l, i - 1, v);
+            l = i + 1;
+        } else {
+            QuicksortRec(i + 1, r, v);
+            r = i - 1;
+        }
+    }
+}

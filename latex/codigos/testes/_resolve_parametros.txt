@@ -1,0 +1,12 @@
+// utils.h
+typedef struct Parametros {
+    char *arquivo_saida;
+    int tamanho;
+    int execucao;
+    Tipo tipo;
+} Parametros;
+
+Parametros ResolveParametros(int argc, char **argv);
+
+// main.c
+Parametros parametros = ResolveParametros(argc, argv);

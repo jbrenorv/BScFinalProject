@@ -1,0 +1,57 @@
+\section{Quick Sort}
+O QuickSort é um dos algoritmos de ordenação mais eficientes e amplamente utilizados, baseado no conceito de divisão e conquista. A ideia central do algoritmo é escolher um elemento como pivô e, em seguida, reorganizar os elementos da lista de modo que todos os menores que o pivô fiquem à sua esquerda e todos os maiores fiquem à sua direita. Esse processo, conhecido como partição, divide a lista em duas partes que podem ser ordenadas recursivamente, aplicando o mesmo procedimento.
+
+
+O algoritmo Particiona, mostrado no pseudo-código abaixo, escolhe o último elemento do intervalo como pivô.
+
+\lstinputlisting[language=C]{funcoes-c/h_particiona.txt}
+\lstinputlisting[language=C]{funcoes-c/h_quick_sort_basico_recursivo.txt}
+\lstinputlisting[language=C]{funcoes-c/h_quick_sort_basico.txt}
+\lstinputlisting[language=C]{funcoes-c/h_quick_sort_recursivo.txt}
+\lstinputlisting[language=C]{funcoes-c/h_quick_sort.txt}
+% \begin{algorithm}
+%     \caption{Particiona}\label{alg-partition:cap}
+%     \DontPrintSemicolon
+%     \Entrada{um intervalo [$inicio$, $fim$] e um vetor $v$, com $0 \leq inicio < fim < |v|$}
+%     \Resultado{devolve $j \in [inicio, fim]$ tal que $v[inicio..j-1] \leq v[j] < v[j+1..fim]$}
+%     \Inicio{
+%         $piv\hat{o} \gets v[fim]$\;
+%         $j \gets inicio$\;
+%         \Para{$i = inicio$ \Ate $\,fim - 1\,$}{
+%             \Se{$v[i] \leq piv\hat{o}$}{
+%                 Troca($v[j]$, $v[i]$)\;
+%                 $j \gets j + 1$\;
+%             }
+%         }
+%         $v[fim] \gets v[j]$\;
+%         $v[j] \gets piv\hat{o}$\;
+%         \Retorna{j}
+%     }
+% \end{algorithm}
+
+Para otimizar o uso de memória no QuickSort, é possível adotar estratégias que limitam o crescimento da pilha de execução, evitando problemas como o esgotamento de espaço em cenários desfavoráveis, por exemplo, quando o vetor está ordenado de forma decrescente. Uma abordagem eficiente é sempre processar primeiro o menor dos subvetores gerados pela partição e eliminar a segunda chamada recursiva, transformando-a em uma iteração. Dessa forma, garante-se que o tamanho do subvetor no topo da pilha será, no máximo, metade do tamanho do subvetor logo abaixo, limitando a altura da pilha a $\log_2 n$ \cite[p.~89--90]{book97338b4c}.
+
+% \begin{algorithm}
+%     \caption{QuickSort}\label{alg-quick-sort:cap}
+%     \DontPrintSemicolon
+%     \Entrada{um intervalo [$inicio$, $fim$] e um vetor $v$, com $0 \leq inicio \leq fim + 1 \leq |v|$}
+%     \Resultado{o vetor $v[inicio..fim]$ em ordem crescente}
+%     \Inicio{
+%         \Enqto{$inicio < fim$}{
+%             $j \gets$ Particiona($inicio$, $fim$, $v$)\;
+%             \eSe{$j - inicio < fim - j$}{
+%                 QuickSort($inicio$, $j-1$, $v$)\;
+%                 $inicio \gets j+1$\;
+%             }{
+%                 QuickSort($j+1$, $fim$, $v$)\;
+%                 $fim \gets j-1$\;
+%             }
+%         }
+%     }
+% \end{algorithm}
+
+\subsection{Prova de correção}
+\lipsum[19]
+
+\subsection{Complexidade de tempo e espaço}
+\lipsum[19]

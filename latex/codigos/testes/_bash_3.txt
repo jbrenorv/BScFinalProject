@@ -1,0 +1,7 @@
+for tamanho in "${tamanhos[@]}"; do
+    for tipo in {1..3}; do
+        for execucao in {1..3}; do
+            ./a.out "$ARQUIVO_SAIDA" "$tamanho" "$tipo" "$execucao"
+        done
+    done
+done

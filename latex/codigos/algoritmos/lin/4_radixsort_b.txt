@@ -1,0 +1,22 @@
+void RadixsortB(int n, int *v) {
+    for (int p = 1; M / p > 0; p *= 10)
+        BaldeDigital(p, n, v);
+}
+void BaldeDigital(int p, int n, int *v) {
+    Celula **baldes = (Celula**) calloc(10, sizeof(Celula*));
+    for (int i = n - 1; i >= 0; i--) {
+        Celula *celula = CriaCelula(v[i]);
+        celula->prox = baldes[Digito(v[i], p)];
+        baldes[Digito(v[i], p)] = celula;
+    }
+    for (int i = 0, k = 0; i < 10; i++) {
+        Celula *atual = baldes[i];
+        while (atual != NULL) {
+            v[k++] = atual->valor;
+            Celula *temp = atual;
+            atual = atual->prox;
+            free(temp);
+        }
+    }
+    free(baldes);
+}

@@ -1,0 +1,19 @@
+void BaldeDigital(int p, int n, int *v) {
+    Celula **baldes = (Celula**) calloc(10, sizeof(Celula*));
+    for (int i = n - 1; i >= 0; i--) {
+        int j = ObterDigito(p, v[i]);
+        Celula *celula = CriaCelula(v[i]);
+        celula->prox = baldes[j];
+        baldes[j] = celula;
+    }
+    for (int i = 0, k = 0; i < 10; i++) {
+        Celula *atual = baldes[i];
+        while (atual != NULL) {
+            v[k++] = atual->valor;
+            Celula *temp = atual;
+            atual = atual->prox;
+            free(temp);
+        }
+    }
+    free(baldes);
+}

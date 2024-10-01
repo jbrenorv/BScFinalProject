@@ -1,0 +1,16 @@
+void Introsort(int n, int *v) {
+    IntrosortRec(0, n - 1, log2(n) * 2, v);
+    Insercao(n, v);
+}
+void IntrosortRec(int l, int r, int d, int *v) {
+    while (r - l > 16) {
+        if (d == 0) {
+            Heapsort(r - l + 1, v + l);
+            return;
+        }
+        --d;
+        int j = Particiona2(l, r, v);
+        IntrosortRec(l, j, d, v);
+        l = j + 1;
+    }
+}

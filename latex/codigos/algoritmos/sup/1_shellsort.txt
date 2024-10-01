@@ -1,0 +1,4 @@
+void Shellsort(int n, int *v) {
+    for (int i = 0; i < 24; i++)
+        H_Ordena(n, CiuraSeq[i], v);
+}

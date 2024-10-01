@@ -1,0 +1,1 @@
+./a.out saida.csv 1000 3 1

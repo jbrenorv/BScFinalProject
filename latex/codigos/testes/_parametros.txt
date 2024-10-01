@@ -1,0 +1,6 @@
+typedef struct Parametros {
+    char* arquivo_saida;
+    int tamanho;
+    int tipo;
+    int execucao;
+} Parametros;

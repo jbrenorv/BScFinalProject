@@ -1,2 +1,4 @@
-# TCC
-Código produzido durando o desenvolvimento do trabalho de conclusão de curso
+# Execução dos testes
+```bash
+./scripts/testes.sh
+```

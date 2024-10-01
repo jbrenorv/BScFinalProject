@@ -1,0 +1,5 @@
+gcc src/*.c -O3 -lm
+SAIDA_DIR="saida"
+mkdir -p "$SAIDA_DIR"
+ARQUIVO_SAIDA="$SAIDA_DIR/saida_$(date "+%Y.%m.%d-%H.%M.%S").csv"
+echo "algoritmo,tamanho,tipo,execucao,comparacoes,movimentacoes,tempo_ms" > "$ARQUIVO_SAIDA"

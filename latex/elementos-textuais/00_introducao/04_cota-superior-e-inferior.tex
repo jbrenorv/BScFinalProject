@@ -1,0 +1,12 @@
+\section{Cota superior e inferior}
+Na análise de complexidade de algoritmos, os conceitos de cota superior e cota inferior são fundamentais para descrever os limites de desempenho de um algoritmo.
+
+Cota superior refere-se ao limite máximo do tempo de execução ou espaço utilizado por um algoritmo em função do tamanho da entrada, denotado pela notação Big-O. Essa medida garante que o algoritmo não excederá certo desempenho em seu pior caso. Por exemplo, se um algoritmo tem complexidade $O(n^2)$, seu tempo de execução não será pior do que proporcional ao quadrado do tamanho da entrada.
+
+Cota inferior, por sua vez, define o limite mínimo de desempenho necessário para resolver um problema. Isso significa que nenhum algoritmo pode resolver o problema em menos tempo do que a cota inferior definida, independentemente da abordagem utilizada. A notação usada para descrever a cota inferior é a notação $\Omega$ (Ômega).
+
+Para algoritmos de ordenação baseados em comparação, a cota inferior é $\Omega(nlog_2n)$. Esse resultado demonstra que qualquer algoritmo de ordenação que utilize apenas comparações entre elementos, no pior caso, precisará de pelo menos $nlog_2n$ comparações para ordenar n elementos. Este limite foi provado por \cite{knuth1998art}, onde ele utiliza conceitos de árvores de decisão para demonstrar que a profundidade mínima da árvore que representa todas as permutações possíveis dos elementos é $log_2(n!)$, o que se aproxima de $nlog_2n$ pela fórmula de Stirling.
+
+Portanto, para algoritmos de ordenação baseados em comparação, a eficiência máxima possível é limitada por $\Theta(nlog_2n)$, representando tanto a cota superior quanto a inferior para os melhores algoritmos, como Merge Sort e Heap Sort, no pior caso.
+
+% Donald E. Knuth em sua obra clássica \textit{The Art of Computer Programming, Volume 3: Sorting and Searching}

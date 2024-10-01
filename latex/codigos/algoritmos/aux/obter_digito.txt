@@ -1,0 +1,3 @@
+int ObterDigito(int p, int valor) {
+    return (valor / p) % 10;
+}

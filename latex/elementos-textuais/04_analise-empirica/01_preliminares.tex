@@ -1,0 +1,103 @@
+\section{Preliminares}
+Nesta seção é descrito o ambiente de desenvolvimento, informando qual o hardware e softwares utilizados na implementação dos algoritmos e execução dos testes. Além disso, é apresentado a forma como o projeto foi organizado em diretórios e aquivos. Por fim, é feita algumas definições necessárias para um melhor entendimento das seções que se seguem.
+
+\subsection{Ambiente de desenvolvimento}
+Para a implementação dos algoritmos e execução dos testes foi utilizado um computador de mesa comum com o sistema operacional Ubuntu. Todos os algoritmos e funções auxiliares foram implementados com a linguagem de programação C. As linguagens de programação Bash e Python foram utilizadas de forma secundária para automatização dos testes e geração de gráficos, respectivamente. O hardware, softwares e versões utilizados são especificados na tabela \ref{tab:hardware-and-softwares}.
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:hardware-and-softwares}Hardware e softwares utilizados}
+    \begin{tabular}{ c | l | l }
+        \hline
+        Tipo                      & Componente                & Produto\\
+        \hline
+        \multirow{3}{*}{Hardware} & Placa mãe                 & MSI B450M PRO-VDH MAX\\
+                                  & Processador               & AMD\textregistered \text{ }Ryzen 5 4600g\\
+                                  & Memória principal         & 2x XPG 8GB DDR4\\
+        \hline
+        \multirow{4}{*}{Software} & Sistema operacional       & Linux Ubuntu 22.04 LTS\\
+                                  & Editor de texto           & Microsoft Visual Studio Code\\
+                                  & Compilador C              & GNU Compiler Collection GCC\\
+                                  & Linguagens de programação & C, Bash e Python\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Organização do código fonte}
+A figura \ref{fig:projeto-ordenacao} ilustra a forma como código fonte do projeto foi organizado, enquanto que a tabela \ref{tab:projeto-ordenacao} dá uma breve descrição de cada arquivo.
+
+\begin{figure}[H]
+\Caption{\label{fig:projeto-ordenacao}Árvore de diretórios e arquivos do projeto}
+\centering
+\begin{forest}
+    for tree={font=\ttfamily, grow'=0,
+    folder indent=.9em, folder icons,
+    edge=densely dotted}
+    [
+        [graficos
+            [graficos.ipynb, is file]
+        ]
+        [scripts
+          [testes.sh, is file]
+        ]
+        [src
+          [main.c, is file]
+          [ordenacao.c, is file]
+          [ordenacao.h, is file]
+          [utils.c, is file]
+          [utils.h, is file]
+        ]
+        [.gitignore, is file]
+        [README.md, is file]
+    ]
+\end{forest}
+\vspace{3pt}
+\Fonte{Elaborado pelo autor. Acesso público em https://github.com/jbrenorv/ordenacao}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:projeto-ordenacao}Descrição dos arquivos do projeto}
+    \begin{tabular}{ c | l }
+        \hline
+        Arquivo        & Descrição\\
+        \hline
+        graficos.ipynb & Arquivo exportado do notebook criado no Google Colab\\
+        \hline
+        testes.sh      & Implementa script em Bash para execução automática dos testes\\
+        \hline
+        main.c         & Implementa a função principal\\
+        \hline
+        ordenacao.c    & Implementa os algoritmos de ordenação\\
+        \hline
+        ordenacao.h    & Declara os protótipos dos algoritmos de ordenação\\
+        \hline
+        utils.c        & Implementa as funções auxiliares\\
+        \hline
+        utils.h        & Declara protótipos das funções auxiliares\\
+        \hline
+        .gitignore     & Declara diretórios e arquivos que o Git deve ignorar\\
+        \hline
+        README.md      & Documenta o projeto com instruções de execução dos testes\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Tipos de vetores}
+Além do tamanho do vetor, a forma como os elementos estão dispostos inicialmente pode interferir no tempo e na quantidade de operações que cada algoritmo executa. Pensando nisso, com o objetivo de analisar como cada algoritmo se comporta para diferentes tipos de entrada, foram considerados três tipos de vetores nos testes, como mostra a tabela \ref{tab:tipos-de-vetores}.
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:tipos-de-vetores}Tipos de vetores}
+    \begin{tabular}{ c | l }
+        \hline
+        Tipo   & Descrição\\
+        \hline
+        1      & Vetores já ordenados em ordem crescente\\
+        \hline
+        2      & Vetores ordenados em ordem decrescente\\
+        \hline
+        3      & Vetores gerados de forma pseudo-aleatória\\
+        \hline
+    \end{tabular}
+\end{table}

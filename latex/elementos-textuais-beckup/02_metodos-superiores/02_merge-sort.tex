@@ -1,0 +1,86 @@
+\section{Merge Sort}
+O MergeSort é um algoritmo de ordenação que segue o paradigma de divisão e conquista. A ideia principal é dividir o vetor original em dois vetores menores, ordená-los recursivamente e, em seguida, intercalá-los para formar o vetor final ordenado.
+
+Um dos passos fundamentais para a implementação do MergeSort é a intercalação de dois vetores ordenados, processo para o qual usar-se-á o termo em inglês Merge. O problema consiste em combinar os elementos desses vetores em um único vetor também ordenado. Como ambos os vetores já estão organizados, é possível explorar essa característica para criar um algoritmo eficiente, que percorre os elementos de forma sequencial, comparando-os e adicionando o menor ao vetor resultante.
+
+\lstinputlisting[language=C]{funcoes-c/g_merge.txt}
+% \begin{algorithm}
+%     \caption{Merge}\label{alg-merge:cap}
+%     \DontPrintSemicolon
+%     \Entrada{$inicio$, $meio$, $fim$ e $v$, com $v[inicio..meio-1]$ e $v[meio..fim-1]$ ordenados}
+%     \Resultado{o vetor $v[inicio..fim-1]$ em ordem crescente}
+%     \Inicio{
+%         $aux \gets CriaVetor(fim - inicio)$ \tcp*{Cria um vetor de tamanho $fim - inicio$}
+%         $i \gets inicio$\;
+%         $j \gets meio$\;
+%         $k \gets 0$\;
+%         \Enqto{$i < meio$ \textbf{ou} $j < fim$}{
+%             \eSe{$j \geq fim$ \textbf{ou} $(i < meio$ \textbf{e} $v[i] \leq v[j])$}{
+%                 $aux[k] \gets v[i]$\;
+%                 $i \gets i + 1$\;
+%             }{
+%                 $aux[k] \gets v[j]$\;
+%                 $j \gets j + 1$\;
+%             }
+%             $k \gets k + 1$\;
+%         }
+%         \Para{$i = inicio$ \Ate $\,fim - 1\,$}{
+%             $v[i] \gets aux[i - inicio]$\;
+%         }
+%     }
+% \end{algorithm}
+
+Agora o algoritmo Merge será usado como sub-rotina do algoritmo principal.
+
+\lstinputlisting[language=C]{funcoes-c/g_merge_sort_recursivo.txt}
+\lstinputlisting[language=C]{funcoes-c/g_merge_sort.txt}
+% \begin{algorithm}
+%     \caption{MergeSort}\label{alg-merge-sort:cap}
+%     \DontPrintSemicolon
+%     \Entrada{um intervalo [$inicio$, $fim$) e um vetor $v$, com $0 \leq inicio,\, fim \leq |v|$}
+%     \Resultado{o vetor $v[inicio..fim-1]$ em ordem crescente}
+%     \Inicio{
+%         \Se{$inicio < fim - 1$}{
+%             $meio \gets (inicio + fim) / 2$\;
+%             MergeSort($inicio$, $meio$, $v$)\;
+%             MergeSort($meio$, $fim$, $v$)\;
+%             Merge($inicio$, $meio$, $fim$, $v$)\;
+%         }
+%     }
+% \end{algorithm}
+
+Observe que para ordenar um vetor $v$ de tamanho $n$, deve-se executar MergeSort($0$, $n$, $v$).
+
+\subsection{Prova de correção}
+Seja $n$ o tamanho do vetor $v$. Vamos provar que o algoritmo é correto por indução em $n$. Se $n = 1$ a condição da instrução \textbf{se} é falsa e nenhuma movimentação é realizada no vetor. Como o vetor já estava ordenado por definição, então o algoritmo é correto para este caso.
+
+Agora suponha que $n > 1$ e que o algoritmo funciona para qualquer vetor de tamanho menor que $n$. Neste caso, o algoritmo divide o vetor em duas partes de tamanho menor que $n$:
+\[
+  \overbrace{v[0..\lfloor n/2\rfloor-1]}^{\lfloor n/2\rfloor} \hspace{0.5cm}\text{ e }\hspace{0.5cm} \overbrace{v[\lfloor n/2\rfloor..n-1]}^{n - \lfloor n/2\rfloor}
+\]
+Por hipótese, podemos supor que o algoritmo vai ordenar corretamente as duas partes. Por fim, o algoritmo Merge vai intercalar corretamente as duas partes, garantindo que o vetor completo fique em ordem.
+
+Portanto, pelo princípio da indução, o algoritmo MergeSort é correto para vetores de qualquer tamanho.
+
+\subsection{Complexidade de tempo e espaço}
+Suponha, sem perca de generalidade, que a execução do algoritmo inicia com um vetor de tamanho $n = 2^k$, com $k \in \mathbb{N}$. A cada chamada recursiva do algoritmo, o tamanho do intervalo diminui exatamente pela metade. Ou seja, na primeira chamada o intervalo terá tamanho $2^{k-1}$, na segunda $2^{k-2}$, e assim por diante. Sendo assim, a arvore de recurção terá exatamente $k+1$ níveis, como ilustra a tabela \ref{tab:merge-sort-interval-lenght}.
+
+\begin{table}[!h]
+    \centering
+    \Caption{\label{tab:merge-sort-interval-lenght}Tamanho do intervalo por nível da árvore de recursão - MergeSort}
+    \begin{tabular}{c|c|c|c|c|c|c}
+        Nível & $1$ & $2$ & $3$ & $\cdots$ & $k$ & $k+1$ \\
+        \hline
+        Tamanho do intervalo & $2^k$ & $2^{k-1}$ & $2^{k-2}$ & $\cdots$ & $2$ & $1$ \\
+    \end{tabular}
+\end{table}
+
+No i-ésimo nível da árvore de recursão, temos $2^{i-1}$ intervalos de tamanho $2^{k-i+1}$. O tempo gasto em cada um desses intervalos é o tempo gasto na operação de Merge que, por sua vez, é linear no tamanho do intervalo. Mas a soma dos tamanhos de todos os intervalos de um mesmo nível é igual à $n$:
+\[
+    2^{i-1} \cdot 2^{k-i+1} = n
+\]
+Logo, o tempo total gasto em cada nível é proporcional a $n$. Como existem $k+1$ níveis, então o tempo de execução do algoritmo é $O(n\cdot k)$. Por fim, para deixar tudo em função de $n$, observe que:
+\[
+    n = 2^k \Leftrightarrow k = log_2(n)
+\]
+Portanto, a complexidade temporal do MergeSort é $O(n\cdot log_2(n))$.

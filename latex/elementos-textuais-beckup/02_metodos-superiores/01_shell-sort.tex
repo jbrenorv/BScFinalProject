@@ -1,0 +1,31 @@
+\section{Shell Sort}
+O Shell Sort é um algoritmo de ordenação que expande as ideias do \textit{Inserção} para melhorar sua eficiência em determinados casos. Ele organiza os elementos de uma lista ao permitir a troca de itens que estão distantes uns dos outros, utilizando um conceito chamado de h-ordenação. A ideia principal é dividir a lista em sublistas baseadas em um intervalo $h$ e ordenar esses subconjuntos de forma independente. Com isso, os elementos são gradualmente movidos para posições mais próximas de sua ordenação final. À medida que o intervalo $h$ diminui, o algoritmo refina a ordenação até que todas as sublistas sejam reduzidas a elementos consecutivos, momento em que o método converge para um \textit{Inserção} final mais eficiente.
+
+\lstinputlisting[language=C]{funcoes-c/f_shell_sort.txt}
+% \begin{algorithm}
+%     \caption{ShellSort}\label{alg-shell-sort:cap}
+%     \DontPrintSemicolon
+%     \Entrada{um vetor $v$ de $n$ elementos}
+%     \Resultado{o vetor $v$ em ordem crescente}
+%     \Inicio{
+%         $gap \gets n / 2$\;
+%         \Enqto{$gap > 0$}{
+%             \Para{$i = gap$ \Ate $\,n - 1\,$}{
+%                 $chave \gets v[i]$\;
+%                 $j \gets i - gap$\;
+%                 \Enqto{$j \geq 0$ \textbf{e} $v[j] > chave$}{
+%                     $v[j+gap] \gets v[j]$\;
+%                     $j \gets j - gap$\;
+%                 }
+%                 $v[j+gap] \gets chave$\;
+%             }
+%             $gap \gets gap / 2$\;
+%         }
+%     }
+% \end{algorithm}
+
+\subsection{Prova de correção}
+Para o caso particular em que $n = 1$, o vetor está trivialmente ordenado, e nenhuma movimentação é realizada. Já no caso geral, em que $n > 1$, a variável $gap$ sempre atinge o valor $1$. Nesse ponto, os mesmos passos do algoritmo \textit{Inserção} são executados, garantindo a ordenação do vetor. Portanto, o algoritmo é correto.
+
+\subsection{Complexidade de tempo e espaço}
+TODO: Encontrar e citar bibliografias que sustentem as seguinte informações: \textbf{melhor caso:} linear, \textbf{caso médio:} $O(n^{1.5}) \approx O(n \cdot log_2(n))$ e \textbf{pior caso:} $O(n^2)$.

@@ -1,0 +1,41 @@
+\section{Inserção}
+Assim como o \textit{Bolha}, o \textit{Inserção} também é um algoritmo iterativo clássico e de fácil compreensão, que resolve o problema da ordenação. A ideia central consiste em uma solução para o problema de inserir um novo elemento a um vetor ordenado, de modo que o vetor resultante também esteja em ordem. O que o \textit{Inserção} faz, então, é inserir o elemento $v[i]$ ao vetor $v[0..i-1]$, sequencialmente para todo $0 < i < n$.
+
+\lstinputlisting[language=C]{funcoes-c/e_insercao.txt}
+% \begin{algorithm}
+%     \caption{Inserção}\label{alg-insertion-sort:cap}
+%     \DontPrintSemicolon
+%     \Entrada{um vetor $v$ de $n$ elementos}
+%     \Resultado{o vetor $v$ em ordem crescente}
+%     \Inicio{
+%         \Para{$i = 1$ \Ate $\,n - 1\,$}{
+%             $chave \gets v[i]$\;
+%             $j \gets i - 1$\;
+%             \Enqto{$j \geq 0$ \textbf{e} $v[j] > chave$}{
+%                 $v[j + 1] \gets v[j]$\;
+%                 $j \gets j - 1$\;
+%             }
+%             $v[j+1] \gets chave$\;
+%         }
+%     }
+% \end{algorithm}
+
+\subsection{Prova de correção}
+No início de cada iteração do laço externo, isto é, imediatamente antes de verificar a condição $i \leq n-1$, o seguinte invariante é válido: o vetor $v[0..i-1]$ está ordenada. Esse invariante será utilizado para provar, por indução em $i$, que o algoritmo \textit{Inserção} é correto.
+
+Quando $i = 1$, o vetor $v[0..i-1]$ contém apenas um elemento, que está trivialmente ordenado. Assim, o invariante é verdadeiro no caso base.
+
+Suponha que o invariante seja verdadeiro no início de uma iteração qualquer com $i > 1$, isto é, que $v[0..i-1]$ está ordenado. Durante esta iteração, o valor de $v[i]$ é salvo na variável \textit{chave}, e o laço interno encontra a posição $j$ do primeiro elemento em $v[0..i-1]$ que seja menor ou igual a \textit{chave} (percorrendo os elementos da direita para a esquerda). Ao mesmo tempo, os elementos de $v[j+1..i-1]$ são deslocados uma posição para a direita. 
+
+Como o vetor $v[0..i-1]$ estava inicialmente ordenada, após a execução do laço interno, vale que:  
+\[
+v[0..j] \leq \textit{chave} < v[j+2..i].
+\]
+Quando o valor de \textit{chave} é atribuído à posição $j+1$, o vetor $v[0..i]$ torna-se ordenada. Assim, o invariante é preservado no início da próxima iteração.
+
+Pelo princípio da indução, o invariante é válido em todas as iterações do laço externo. Em particular, no início da última iteração, quando $i = n$, temos que $v[0..n-1]$ está ordenado. Portanto, o algoritmo \textit{Inserção} está correto.
+
+\subsection{Complexidade de tempo e espaço}
+É fácil ver que o melhor caso ocorre quando o vetor já está ordenado, pois neste caso a condição do laço interno é sempre falsa, resultando em uma complexidade $O(n)$ devida as iterações do laço externo. Por outro lado, se o vetor está inicialmente em ordem decrescente, o laço interno sempre terá que inserir a $chave$ na primeira posição. Sendo assim, a complexidade temporal é dada pela quantidade total de iterações do laço interno, que por sua vez é igual a soma (3.1). Portanto, o \textit{Inserção} consome tempo proporcional a $O(n^2)$ no pior caso.
+
+Já a complexidade espacial é $O(1)$, uma vez que o uso de memória adicional é constante.

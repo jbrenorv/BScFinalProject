@@ -1,0 +1,4 @@
+FILE *arquivo_saida;
+if ((arquivo_saida = fopen(parametros.arquivo_saida, "a")) == NULL) {
+    FinalizaExecucao("Falha ao tentar abrir arquivo de saida.");
+}

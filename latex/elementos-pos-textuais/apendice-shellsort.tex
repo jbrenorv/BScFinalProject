@@ -1,0 +1,23 @@
+\apendice{ShellSort - Sequências de incrementos}
+
+\begin{landscape}
+\begin{table}[!h]
+\centering
+\Caption{\label{tab:shell-sort-increment-sequences}Sequências de incrementos}
+\begin{tabular}{c|c|c}
+    Autor & Sequência & Pior caso \\
+    \hline
+    Shell \cite{shell1959high} & \( h_k = \lfloor N/2^k \rfloor \) & $2^{k-1}$ \\
+    \hline
+    Hibbard \cite{hibbard1963empirical} & \( h_k = 2^k - 1 \) & $2^{k-1}$ \\
+    \hline
+    Pratt \cite{pratt1972shellsort} & \( h_k = 2^p 3^q \) & $2^{k-1}$ \\
+    \hline
+    Knuth \cite{knuth1973art} & \( h_k = \frac{3^k - 1}{2} \) & $2^{k-1}$ \\
+    \hline
+    Sedgewick \cite{sedgewick1986new} & \( h_k = 4^k + 3 \times 2^{k-1} + 1 \) & $2^{k-1}$ \\
+    \hline
+    Ciura \cite{ciura2001best} & $1, 4, 10, 23, 57, ...$ & $2^{k-1}$ \\
+\end{tabular}
+\end{table}
+\end{landscape}

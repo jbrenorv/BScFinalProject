@@ -1,0 +1,16 @@
+void QuicksortI(int n, int *v) {
+    QuicksortIRec(0, n - 1, v);
+    Insercao(n, v);
+}
+void QuicksortIRec(int l, int r, int *v) {
+    while (r - l > 16) {
+        int j = Particiona(l, r, v);
+        if (j - l < r - j) {
+            QuicksortIRec(l, j, v);
+            l = j + 1;
+        } else {
+            QuicksortIRec(j, r, v);
+            r = j - 1;
+        }
+    }
+}

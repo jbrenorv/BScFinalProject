@@ -1,0 +1,17 @@
+Dados ObterDados(int tamanho, int *vetor, Algoritmo *algoritmo) {
+    Dados dados = (Dados){ 0LL, 0LL, 0.0 };
+
+    int *vetor_copia = AlocaVetor(tamanho);
+    CopiaVetor(tamanho, vetor, vetor_copia);
+    algoritmo->alg_coletor(tamanho, vetor_copia, &dados);
+    free(vetor_copia);
+
+    struct timespec inicio, fim;
+    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &inicio);
+    algoritmo->alg(tamanho, vetor);
+    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &fim);
+    dados.tempo_ms = (fim.tv_sec - inicio.tv_sec) * 1000.0 +
+                     (fim.tv_nsec - inicio.tv_nsec) / 1000000.0;
+
+    return dados;
+}

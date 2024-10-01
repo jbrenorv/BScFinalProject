@@ -1,0 +1,6 @@
+void MoveMedianaFim(int l, int r, int *v) {
+    int m = (l + r) / 2;
+    if (v[l] < v[m]) Troca(v + l, v + m);
+    if (v[r] < v[m]) Troca(v + r, v + m);
+    if (v[l] < v[r]) Troca(v + l, v + r);
+}
