@@ -1,0 +1,15 @@
+void InsereOrdenado(int valor, Celula **bucket) {
+    Celula *celula = (Celula *) malloc(sizeof(Celula));
+    celula->valor = valor;
+    celula->prox = NULL;
+    if (*bucket == NULL || (*bucket)->valor >= valor) {
+        celula->prox = *bucket;
+        *bucket = celula;
+    } else {
+        Celula *atual = *bucket;
+        while (atual->prox && atual->prox->valor < valor)
+            atual = atual->prox;
+        celula->prox = atual->prox;
+        atual->prox = celula;
+    }
+}
