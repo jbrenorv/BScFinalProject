@@ -1,5 +1,5 @@
 \section{Preliminares}
-Nesta seção é descrito o ambiente de desenvolvimento, informando qual o hardware e softwares utilizados na implementação dos algoritmos e execução dos testes. Além disso, é apresentado a forma como o projeto foi organizado em diretórios e aquivos. Por fim, é feita algumas definições necessárias para um melhor entendimento das seções que se seguem.
+Nesta seção, descreve-se o ambiente de desenvolvimento, indicando o hardware e os softwares utilizados na implementação dos algoritmos e na execução dos testes. Também é apresentada a organização do projeto em diretórios e arquivos. Além disso, são feitas definições necessárias para o melhor entendimento das seções seguintes. Por fim, descreve-se o que foi coletado e como essa coleta foi realizada.
 
 \subsection{Ambiente de desenvolvimento}
 Para a implementação dos algoritmos e execução dos testes foi utilizado um computador de mesa comum com o sistema operacional Ubuntu. Todos os algoritmos e funções auxiliares foram implementados com a linguagem de programação C. As linguagens de programação Bash e Python foram utilizadas de forma secundária para automatização dos testes e geração de gráficos, respectivamente. O hardware, softwares e versões utilizados são especificados na tabela \ref{tab:hardware-and-softwares}.
@@ -38,14 +38,12 @@ A figura \ref{fig:projeto-ordenacao} ilustra a forma como código fonte do proje
             [graficos.ipynb, is file]
         ]
         [scripts
-          [testes.sh, is file]
+            [testes.sh, is file]
         ]
         [src
-          [main.c, is file]
-          [ordenacao.c, is file]
-          [ordenacao.h, is file]
-          [utils.c, is file]
-          [utils.h, is file]
+            [main.c, is file]
+            [ordenacao.c, is file]
+            [ordenacao.h, is file]
         ]
         [.gitignore, is file]
         [README.md, is file]
@@ -64,17 +62,13 @@ A figura \ref{fig:projeto-ordenacao} ilustra a forma como código fonte do proje
         \hline
         graficos.ipynb & Arquivo exportado do notebook criado no Google Colab\\
         \hline
-        testes.sh      & Implementa script em Bash para execução automática dos testes\\
+        testes.sh      & Implementa script em Bash para execução automatizada dos testes\\
         \hline
         main.c         & Implementa a função principal\\
         \hline
-        ordenacao.c    & Implementa os algoritmos de ordenação\\
+        ordenacao.c    & Implementa os algoritmos de ordenação e funções utilitárias\\
         \hline
-        ordenacao.h    & Declara os protótipos dos algoritmos de ordenação\\
-        \hline
-        utils.c        & Implementa as funções auxiliares\\
-        \hline
-        utils.h        & Declara protótipos das funções auxiliares\\
+        ordenacao.h    & Declara os protótipos dos algoritmos e funções utilitárias\\
         \hline
         .gitignore     & Declara diretórios e arquivos que o Git deve ignorar\\
         \hline
@@ -98,6 +92,140 @@ Além do tamanho do vetor, a forma como os elementos estão dispostos inicialmen
         2      & Vetores ordenados em ordem decrescente\\
         \hline
         3      & Vetores gerados de forma pseudo-aleatória\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Dados coletados}
+Esta seção visa apenas apresentar e definir quais dados foram coletados. A próxima seção descreve com mais detalhes como a coleta foi realizada. Para cada combinação de algoritmo, tamanho e tipo de vetor, foi registrado o número de comparações, o número de movimentações e o tempo de execução. Essas três métricas são definidas na tabela \ref{tab:dados-coletados}.
+
+Obter essas informações de cada algoritmo é importante para sabermos na prática como eles se comportam para diferentes configurações de entrada. Por exemplo, um algoritmo que executa muitas movimentações pode não ser adequado em um cenário em que mudar os registros de posição seja uma operação muito lenta.
+
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:dados-coletados}Dados coletados e suas definições}
+    \begin{tabular}{ c | l }
+        \hline
+        Dado                    & Definição\\
+        \hline
+        Número de comparações   & \makecell[l]{Uma comparação ocorre quando um elemento do\\
+                                               vetor é comparado com outro elemento do vetor ou\\
+                                               com outra variável do programa}\\
+        \hline
+        Número de movimentações & \makecell[l]{Uma movimentação ocorre sempre que um valor é\\
+                                               atribuído a um elemento do vetor ou um elemento\\
+                                               do vetor é atribuído a uma outra variável}\\
+        \hline
+        Tempo de execução       & \makecell[l]{Tempo decorrido entre o início e o fim da\\
+                                               execução do algoritmo em segundos}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Metodologia de coleta}
+\subsubsection{Entrada}
+A função principal é o ponto de entrada para qualquer programa escrito em linguagem de C. De uma forma mais técnica, ao compilar e linkar o código fonte do projeto, obtém-se um arquivo binário executável que, ao ser executado, invoca a função principal para iniciar a execução do processo. Essa função recebe dois argumentos quando invocada. O primeiro é um número inteiro comumente chamado de argc, que indica a quantidade de parâmetros recebidos. Já o segundo é uma lista de vetores de caracteres comumente chamado de argv, que são os parâmetros em si. O primeiro parâmetro é sempre o nome do arquivo executável ou o caminho absoluto até ele. A tabela \ref{tab:main-parametros} indica os parâmetros adicionais esperados.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:main-parametros}Parâmetros da função principal}
+    \begin{tabular}{ c | l }
+        \hline
+        Posição (argv) & Parâmetro esperado\\
+        \hline
+        0              & Nome ou caminho para o arquivo executável\\
+        \hline
+        1              & Nome do arquivo onde deve ser escrito os resultados\\
+        \hline
+        2              & Número representando o tamanho do vetor\\
+        \hline
+        3              & Número igual a 1, 2 ou 3, representando o tipo do vetor\\
+        \hline
+        4              & Número representando número da execução\\
+        \hline
+    \end{tabular}
+\end{table}
+
+O último parâmetro, que indica o número da execução, é explicado na subseção \ref{subsection:Testes}, que apresenta como os testes foram executados.
+
+\subsubsection{Processamento}
+O processamento consiste na execução sequencial das etapas necessárias para realizar os experimentos definidos neste trabalho. O pseudocódigo apresentado a seguir oferece uma visão de alto nível do fluxo executado pela função principal, desde a leitura dos parâmetros de entrada até o registro dos resultados obtidos. Optou-se por essa forma de apresentação para destacar a lógica geral do procedimento e evitar a exibição detalhada de trechos de código que não contribuem significativamente para a compreensão do funcionamento do sistema.
+
+\begin{algorithm}[H]
+    \caption{Função principal}\label{alg-shell-sort:cap}
+    \DontPrintSemicolon
+    \Entrada{A tupla $(S, N, T, E)$ representado os parâmetros listados na tabela \ref{tab:main-parametros}}
+    \Inicio{
+        $F \gets$ Abre arquivo $S$\;
+        $O \gets$ Aloca vetor de tamanho $N$ com valores de acordo com o tipo $T$\;
+        $V \gets$ Aloca vetor de tamanho $N$\;
+        $L \gets$ Cria lista de pares de algoritmos\footnote{O primeiro elemento é o algoritmo original e o segundo é a versão modificada para obter o número de comparações e movimentações.}\;
+        \Para{cada par $(A, A') \in L$}{
+            $V \gets$ Cópia de $O$\;
+            $t \gets$ Executa $A$ em $V$\footnote{Obtendo o tempo de execução $t$ em segundos.}\;
+            $V \gets$ Cópia de $O$\footnote{Neste ponto $V$ está ordenado, então é necessário resetar para o vetor original.}\;
+            $(c, m) \gets$ Executa $A'$ em $V$\footnote{Obtendo o número de comparações $c$ e movimentações $m$.}\;
+            Adiciona em $F$ uma linha com os resultados\footnote{Precisamente, a linha contêm o nome do algoritmo, o tamanho do vetor, o tipo do vetor, o número da execução, o número de comparações, o número de movimentações e o tempo de execução.}\;
+        }
+        Libera a memória alocada e fecha o arquivo $F$\;
+    }
+\end{algorithm}
+
+\subsubsection{Exemplo de saída}
+Se após compilar e linkar o código C, o arquivo executável resultante se chamar a.out, o comando a ser executado a partir de um Terminal Linux, aberto no mesmo diretório do executável, poderia ser, por exemplo:
+\lstinputlisting[language=bash]{codigos/testes/_bash.txt}
+Neste caso, seria gerado um vetor de forma pseudoaleatória (tipo 3) de tamanho 1000 e os resultados seriam escritos no arquivo saida.csv. Com exceção do cabeçalho, o conteúdo do arquivo saida.csv é representado na tabela \ref{tab:exemplo-saida}. Além disso, a coluna do tempo pode conter valores diferentes.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:exemplo-saida}Exemplo de saída}
+    \begin{tabular}{ c | l | l | l | l | l | l }
+        \hline
+        Algo.      & Tam. & Tipo & Exec. & Comp.  & Movi.  & Tempo (s)\\\hline
+        Bolha      & 1000 & 2    & 1     & 499224 & 745914 & 0.003385\\\hline
+        Coquetel   & 1000 & 2    & 1     & 376244 & 745914 & 0.004085\\\hline
+        Selecao    & 1000 & 2    & 1     & 499500 & 2970   & 0.000762\\\hline
+        Insercao   & 1000 & 2    & 1     & 249630 & 250636 & 0.000220\\\hline
+        Shellsort  & 1000 & 2    & 1     & 13038  & 20254  & 0.000148\\\hline
+        Mergesort  & 1000 & 2    & 1     & 8698   & 19303  & 0.000126\\\hline
+        Heapsort   & 1000 & 2    & 1     & 8779   & 12587  & 0.000137\\\hline
+        Quicksort  & 1000 & 2    & 1     & 10777  & 21210  & 0.000135\\\hline
+        QuicksortI & 1000 & 2    & 1     & 11568  & 15621  & 0.000091\\\hline
+        Introsort  & 1000 & 2    & 1     & 12291  & 9608   & 0.000084\\\hline
+        Contagem   & 1000 & 2    & 1     & 0      & 2000   & 0.152234\\\hline
+        Balde      & 1000 & 2    & 1     & 1046   & 4046   & 0.000036\\\hline
+        RadixsortC & 1000 & 2    & 1     & 0      & 18000  & 0.000029\\\hline
+        RadixsortB & 1000 & 2    & 1     & 0      & 18000  & 0.000075\\\hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Testes}\label{subsection:Testes}
+Neste ponto o código implementado em linguagem C está pronto para ser invocado com diferentes parâmetros de entrada. Para automatizar este processo, foi criado um script em linguagem Bash. Este script segue os seguintes passos:
+\begin{enumerate}
+    \item Compilação do código C e inicialização do arquivo CSV de saída.
+    \item Geração do tamanhos.
+    \item Três execuções para cada tamanho e tipo de vetor.
+\end{enumerate}
+
+Optou-se por realizar três execuções por tamanho e tipo de vetor para reduzir o impacto de variações ocasionais no tempo de execução, como pequenas flutuações no uso da CPU. Esse número foi escolhido por ser suficiente para obter uma média representativa sem tornar a coleta de dados muito demorada.
+
+Os tamanhos gerados são melhores descritos na tabela \ref{tab:tamanhos}. Foram considerados ao todo 207 tamanhos entre $10^3$ e $10^8$, inclusive. Além disso, cada tamanho foi usado três vezes para cada um dos três tipos, totalizando 1863 chamadas aos algoritmos.
+\begin{table}[H]
+    \centering
+    \Caption{\label{tab:tamanhos}Geração de tamanhos}
+    \begin{tabular}{ c | l | l | l | c }
+        \hline
+        \multicolumn{2}{c|}{Intervalo} & \multirow{2}{*}{Incremento} & \multirow{2}{*}{Subtotal} & \multirow{2}{*}{Total}\\
+        \cline{1-2}
+        Início     & Fim        &                 &    & \\
+        \hline
+        $10^3$     & $10^4 - 1$ & $5 \times 10^2$ & 18 & \multirow{5}{*}{207} \\
+        \cline{1-4}
+        $10^4$     & $10^5 - 1$ & $4 \times 10^3$ & 23 & \\
+        \cline{1-4}
+        $10^5$     & $10^6 - 1$ & $3 \times 10^4$ & 30 & \\
+        \cline{1-4}
+        $10^6$     & $10^7 - 1$ & $2 \times 10^5$ & 45 & \\
+        \cline{1-4}
+        $10^7$     & $10^8$     & $1 \times 10^6$ & 91 & \\
         \hline
     \end{tabular}
 \end{table}
