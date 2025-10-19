@@ -253,7 +253,7 @@ void Heapifica(int i, int n, int *v) {
 
 
 void Heapsort_CD(int n, int *v, Dados *dados) {
-    ConstroiHeap_CD(n, v,dados);
+    ConstroiHeap_CD(n, v, dados);
     for (int i = n - 1; i > 0; i--) {
         Troca(v + 0, v + i);
         Heapifica_CD(0, i, v, dados);
@@ -496,7 +496,7 @@ void MoveMedianaFim_CD(int l, int r, int *v, Dados *dados) {
 }
 
 
-void Contagem(int n, int *v) {
+void Countingsort(int n, int *v) {
     int *contagem = AlocaVetorLimpo(MAX_EL + 1);
     int *v_aux = AlocaVetor(n);
     for (int i = 0; i < n; i++) contagem[v[i]]++;
@@ -511,7 +511,7 @@ void Contagem(int n, int *v) {
 }
 
 
-void Contagem_CD(int n, int *v, Dados *dados) {
+void Countingsort_CD(int n, int *v, Dados *dados) {
     int *contagem = AlocaVetorLimpo(MAX_EL + 1);
     int *v_aux = AlocaVetor(n);
     for (int i = 0; i < n; i++) contagem[v[i]]++;
@@ -527,7 +527,7 @@ void Contagem_CD(int n, int *v, Dados *dados) {
 }
 
 
-void Balde(int n, int *v) {
+void Bucketsort(int n, int *v) {
     Celula **baldes = (Celula **) calloc(n, sizeof(Celula*));
     double intervalo = ceil(MAX_EL / (double) n);
     for (int i = n - 1; i >= 0; i--) {
@@ -547,7 +547,7 @@ void Balde(int n, int *v) {
 }
 
 
-void Balde_CD(int n, int *v, Dados *dados) {
+void Bucketsort_CD(int n, int *v, Dados *dados) {
     Celula **baldes = (Celula **) calloc(n, sizeof(Celula*));
     double intervalo = ceil(MAX_EL / (double) n);
     for (int i = n - 1; i >= 0; i--) {
@@ -744,7 +744,9 @@ Parametros ResolveParametros(int argc, char **argv) {
 
 
 void FinalizaExecucao(const char *mensagem) {
-    printf("Erro: %s\n", mensagem);
+    if (mensagem) {
+        printf("Erro: %s\n", mensagem);
+    }
     exit(1);
 }
 
@@ -768,6 +770,10 @@ int *AlocaVetorLimpo(int n) {
 
 
 int GeraNumeroAleatorioNoIntervalo(int a, int b) {
+    if (a > b || a < MIN_EL || b > MAX_EL) {
+        printf("\nGeraNumeroAleatorioNoIntervalo - Intervalo invalido: [%i, %i]\n", a, b);
+        FinalizaExecucao(NULL);
+    }
     return a + rand() % (b - a + 1);
 }
 
@@ -775,7 +781,7 @@ int GeraNumeroAleatorioNoIntervalo(int a, int b) {
 int *CriaVetor(int n, VTipo tipo) {
     int *v = AlocaVetor(n);
     int k = n / 2;
-    double t = ceil(MAX_EL / (double) n);
+    double t = floor(MAX_EL / (double) n);
     for (int i = 0; i < n; ++i) {
         if (tipo == CRE)        v[i] = GeraNumeroAleatorioNoIntervalo(i * t, (i + 1) * t - 1);
         if (tipo == DEC)        v[i] = GeraNumeroAleatorioNoIntervalo((n - i - 1) * t, (n - i) * t - 1);
@@ -845,7 +851,7 @@ void ImprimeVetor(int n, int *v) {
 void VerificaOrdenacao(int n, int *v, AlgInfo *alg_info) {
     for (int i = 0; i < n - 1; i++) {
         if (v[i] > v[i + 1]) {
-            printf("Erro em: %s\n", alg_info->nome);
+            printf("\nErro em: %s\n", alg_info->nome);
             FinalizaExecucao("O vetor nao esta ordenado\n");
         }
     }

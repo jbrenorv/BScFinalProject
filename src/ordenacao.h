@@ -125,14 +125,14 @@ int Particiona2_CD(int l, int r, int *v, Dados *dados);
 void MoveMedianaFim_CD(int l, int r, int *v, Dados *dados);
 
 
-// Contagem
-void Contagem(int n, int *v);
-void Contagem_CD(int n, int *v, Dados *dados);
+// Countingsort
+void Countingsort(int n, int *v);
+void Countingsort_CD(int n, int *v, Dados *dados);
 
 
-// Balde
-void Balde(int n, int *v);
-void Balde_CD(int n, int *v, Dados *dados);
+// Bucketsort
+void Bucketsort(int n, int *v);
+void Bucketsort_CD(int n, int *v, Dados *dados);
 
 
 // Radixsort

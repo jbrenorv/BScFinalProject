@@ -12,8 +12,11 @@ echo "algoritmo,tamanho,tipo,execucao,comparacoes,movimentacoes,tempo" > "$OUTPU
 tamanhos=()
 
 intervalos=(
-    "10000 100000 10000"
-    "1000000 10000000 1000000"
+    "1000 9999 500"
+    "10000 99999 4000"
+    "100000 999999 30000"
+    "1000000 9999999 200000"
+    "10000000 100000000 1000000"
 )
 
 for intervalo in "${intervalos[@]}"; do
@@ -24,7 +27,7 @@ for intervalo in "${intervalos[@]}"; do
 done
 
 for tamanho in "${tamanhos[@]}"; do
-    for tipo in {0..3}; do
+    for tipo in {0..2}; do
         for execucao in {1..3}; do
 
             printf "\rExecutando algoritmos... Tamanho: $tamanho - Tipo: $tipo/3 - Execucao: $execucao/3"
@@ -34,7 +37,7 @@ for tamanho in "${tamanhos[@]}"; do
             if [ $? -ne 0 ]; then 
                 printf "\nO processo finalizou com um codigo diferente de 0\n"
                 printf "Cancelando testes...\n"
-                rm -r "$OUTPUT_DIR"
+                rm "$OUTPUT_FILE"
                 rm a.out
                 exit 1
             fi

@@ -15,24 +15,24 @@ int main(int argc, char **argv) {
 
     AlgInfo algoritmos[] =
     {
-        // Nome       , N max    , Alg.      , Alg. coletor
-        { "Bolha"     , 100000   , Bolha     , Bolha_CD     , INF },
-        { "Coquetel"  , 100000   , Coquetel  , Coquetel_CD  , INF },
-        { "Selecao"   , 100000   , Selecao   , Selecao_CD   , INF },
-        { "Insercao"  , 100000   , Insercao  , Insercao_CD  , INF },
-        { "Shellsort" , 100000000, Shellsort , Shellsort_CD , SUP },
-        { "Mergesort" , 100000000, Mergesort , Mergesort_CD , SUP },
-        { "Heapsort"  , 100000000, Heapsort  , Heapsort_CD  , SUP },
-        { "Quicksort" , 100000000, Quicksort , Quicksort_CD , SUP },
-        { "QuicksortI", 100000000, QuicksortI, QuicksortI_CD, SUP },
-        { "Introsort" , 100000000, Introsort , Introsort_CD , SUP },
-        { "Contagem"  , 100000000, Contagem  , Contagem_CD  , LIN },
-        { "Balde"     , 100000000, Balde     , Balde_CD     , LIN },
-        { "RadixsortC", 100000000, RadixsortC, RadixsortC_CD, LIN },
-        { "RadixsortB", 100000000, RadixsortB, RadixsortB_CD, LIN },
+        // Nome         , N max    , Alg.        , Alg. coletor
+        { "Bolha"       , 100000   , Bolha       , Bolha_CD       , INF },
+        { "Coquetel"    , 100000   , Coquetel    , Coquetel_CD    , INF },
+        { "Selecao"     , 100000   , Selecao     , Selecao_CD     , INF },
+        { "Insercao"    , 100000   , Insercao    , Insercao_CD    , INF },
+        { "Shellsort"   , 100000000, Shellsort   , Shellsort_CD   , SUP },
+        { "Mergesort"   , 100000000, Mergesort   , Mergesort_CD   , SUP },
+        { "Heapsort"    , 100000000, Heapsort    , Heapsort_CD    , SUP },
+        { "Quicksort"   , 100000000, Quicksort   , Quicksort_CD   , SUP },
+        { "QuicksortI"  , 100000000, QuicksortI  , QuicksortI_CD  , SUP },
+        { "Introsort"   , 100000000, Introsort   , Introsort_CD   , SUP },
+        { "Countingsort", 100000000, Countingsort, Countingsort_CD, LIN },
+        { "Bucketsort"  , 100000000, Bucketsort  , Bucketsort_CD  , LIN },
+        { "RadixsortC"  , 100000000, RadixsortC  , RadixsortC_CD  , LIN },
+        { "RadixsortB"  , 100000000, RadixsortB  , RadixsortB_CD  , LIN },
     };
     int num_algoritmos = sizeof(algoritmos) / sizeof(AlgInfo);
-    
+
     FILE *arquivo_saida;
     if ((arquivo_saida = fopen(parametros.arquivo_saida, "a")) == NULL) {
         free(vetor_original);
