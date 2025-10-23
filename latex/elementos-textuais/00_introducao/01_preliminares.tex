@@ -10,9 +10,9 @@ Compreender e resolver eficientemente o problema da ordenação é crucial para 
 \section{Ordenação interna e externa}
 A ordenação pode ser classificada em dois tipos principais: interna e externa, dependendo da forma como os dados são manipulados durante o processo de ordenação.
 
-Ordenação interna ocorre quando todos os dados a serem ordenados cabem na memória principal do computador (RAM). Esse tipo de ordenação é amplamente utilizado em cenários onde o volume de dados é relativamente pequeno e o acesso rápido à memória permite um desempenho eficiente. Exemplos de algoritmos de ordenação interna incluem Bubble Sort, Merge Sort e Quick Sort.
+Ordenação interna ocorre quando todos os dados a serem ordenados cabem na memória principal do computador (RAM). Esse tipo de ordenação é amplamente utilizado em cenários onde o volume de dados é relativamente pequeno e o acesso rápido à memória permite um desempenho eficiente.
 
-Ordenação externa, por outro lado, é aplicada quando o volume de dados é tão grande que excede a capacidade da memória principal, necessitando do uso de memória secundária, como discos rígidos ou SSDs. Nesse caso, os algoritmos devem ser projetados para minimizar o número de acessos à memória secundária, que é consideravelmente mais lenta do que a memória principal. Exemplos incluem algoritmos de ordenação por blocos e Merge Sort externo.
+Ordenação externa, por outro lado, é aplicada quando o volume de dados é tão grande que excede a capacidade da memória principal, necessitando do uso de memória secundária, como discos rígidos ou SSDs. Nesse caso, os algoritmos devem ser projetados para minimizar o número de acessos à memória secundária, que é consideravelmente mais lenta do que a memória principal. Exemplos incluem algoritmos de ordenação por blocos e Mergesort externo.
 
 Neste trabalho, o foco será exclusivamente na ordenação interna, abordando os principais algoritmos utilizados, suas características e desempenhos em diferentes cenários.
 
@@ -26,13 +26,14 @@ A tabela \ref{tab:stable-sort-algorithms} apresenta os algoritmos que serão imp
 \begin{table}[!h]
     \centering
     \Caption{\label{tab:stable-sort-algorithms}Da estabilidade dos algoritmos apresentados}
-    \begin{tabular}{ |p{3cm}|p{3cm}|  }
+    % \begin{tabular}{ |p{3cm}|p{3cm}|  }
+    \begin{tabular}{ | c | l |  }
     \hline
     Estável      & Não estável\\
     \hline
-    Bolha        & Seleção    \\
+    Bolha        & Selecao    \\
     Coquetel     & Quicksort  \\
-    Inserção     & Heapsort   \\
+    Insercao     & Heapsort   \\
     Mergesort    & Bucketsort \\
     Countingsort & Shellsort  \\
     Radixsort    &            \\
@@ -58,9 +59,9 @@ O paradigma Divisão e conquista é uma das estratégias mais poderosas no proje
 
 A eficiência de um algoritmo que segue o paradigma Divisão e conquista é caracterizada por uma relação de recorrência da forma $T(n) = aT(n/b) + f(n)$, sendo que $T(n)$ representa o tempo total de execução. O Teorema Mestre é a ferramenta matemática que permite solucionar essas recorrências e determinar sua complexidade assintótica. Ele funciona comparando o custo do trabalho de divisão e combinação, $f(n)$, com o custo do trabalho realizado nas folhas da árvore de recursão, dado por $n^{\log_b a}$. O teorema afirma que a solução $T(n)$ cairá em um de três casos:
 \begin{itemize}
-    \item Se $f(n)$ for assintoticamente menor que $n^{\log_b a}$, a complexidade será $O(n^{\log_b a})$ (dominada pelas folhas);
-    \item Se $f(n)$ for assintoticamente maior, a complexidade será $O(f(n))$ (dominada pela raiz);
-    \item E se forem assintoticamente iguais, a complexidade será $O(n^{\log_b a} \log n)$ (equilibrada).
+    \item Se $f(n)$ for assintoticamente menor que $n^{\log_b a}$, a complexidade será $O(n^{\log_b a})$;
+    \item Se $f(n)$ for assintoticamente maior, a complexidade será $O(f(n))$;
+    \item E se forem assintoticamente iguais, a complexidade será $O(n^{\log_b a} \log n)$.
 \end{itemize}  
 
 \subsection{Probabilidade e valor esperado}
@@ -71,8 +72,36 @@ Esses dois conceitos matemáticos serão utilizados no próximo capítulo para a
 \section{Arquitetura de computadores}
 A análise de complexidade \bigO{f(n)} é fundamental, mas não é o único fator que determina o tempo de execução real. Em sistemas de computação modernos, a hierarquia de memória e o conceito de localidade de referência também ajudam a entender o desempenho.
 
-\subsection{Hierarquia de memória}
-\lipsum[19]
+\subsection{Hierarquia de memória} O processador (CPU) interage com diferentes níveis de memória que variam drasticamente em velocidade de acesso e capacidade de armazenamento. A Tabela \ref{tab:memory-hierarchy}, apresentada a seguir, relaciona os tipos de memória com suas capacidades e velocidades. Como os valores exatos de capacidade e latência podem variar entre fabricantes e modelos, esta é uma classificação em alto nível que se mantém consistente, independentemente desses fatores.
+
+\begin{table}[!h]
+    \centering
+    \Caption{\label{tab:memory-hierarchy}Capacidade e velocidade de acesso por tipo de memória}
+    \begin{tabular}{ | c | l | l |  }
+    \hline
+    Nível de memória             & Capacidade  & Velocidade de acesso\\
+    \hline
+    Registradores/L1 Cache       & Muito Baixa & Extremamente rápido \\
+    L2/L3 Cache                  & Baixa       & Muito rápido        \\
+    Memória principal (RAM)      & Alta        & Lento               \\
+    Memória secundária (SSD/HDD) & Muito Alta  & Muito lento         \\
+    \hline
+    \end{tabular}
+\end{table}
+
+O processador é muito rápido. Uma operação básica, como uma comparação ou soma, pode levar apenas um ciclo de clock. No entanto, quando ocorre uma falha de cache — isto é, quando se busca por um dado que não está no cache e precisa ser carregado da RAM — o processo pode custar dezenas ou até centenas de ciclos de clock. Desse modo, a velocidade de um algoritmo em um grande conjunto de dados é frequentemente limitada pelo tempo gasto esperando o acesso à memória, e não pelo número de operações da CPU
+
 
 \subsection{Localidade de referência}
-\lipsum[19]
+Para mitigar o alto custo de acesso à RAM, os processadores utilizam um princípio chamado localidade de referência. Este princípio se refere à tendência de um programa de acessar o mesmo conjunto de locais de memória ou locais próximos em um curto período de tempo.
+
+\begin{itemize}
+    \item Localidade temporal: Se um item foi acessado, é provável que ele seja acessado novamente em breve.
+    \item Localidade espacial: Se um item foi acessado, é provável que os itens armazenados em endereços de memória próximos sejam acessados em breve.
+\end{itemize}
+
+A eficiência de cache é aumentada porque o cache opera em ``blocos'' ou ``linhas de cache'', geralmente de 64 bytes. Ou seja, quando um dado $v[i]$ não está no cache e a CPU precisa carregá-lo da RAM, ela não carrega apenas $v[i]$, mas sim um bloco inteiro que contém $v[i]$ e vários elementos adjacentes, como $v[i+1]$, $v[i+2]$, etc.
+
+Se um algoritmo seguir a localidade espacial, acessando sequencialmente $v[i]$, $v[i+1]$, $v[i+2]$, ele encontrará os próximos dados que precisa já carregados no cache. Assim, o custo de esperar a RAM é pago apenas uma vez para o bloco inteiro, o que torna o acesso subsequente, linear e sequencial quase instantâneo.
+
+Algoritmos que varrem grandes vetores de forma sequencial maximizam a Localidade Espacial e, por isso, são considerados ``cache-friendly''. Em contraste, algoritmos que ``pulam'' em endereços de memória dispersos desperdiçam o bloco de cache carregado e incorrem em muitas falhas de cache.
