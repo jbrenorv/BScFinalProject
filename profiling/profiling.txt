@@ -1,0 +1,25 @@
+Event type,Incl,Self,Short,Formula,Alg
+Instruction Fetch,3965083267,3965083267,Ir,,Mergesort
+L1 Instr. Fetch Miss,11,11,I1mr,,Mergesort
+LL Instr. Fetch Miss,11,11,ILmr,,Mergesort
+Data Read Access,577789601,577789601,Dr,,Mergesort
+L1 Data Read Miss,15212989,15212989,D1mr,,Mergesort
+LL Data Read Miss,2487725,2487725,DLmr,,Mergesort
+Data Write Access,357685897,357685897,Dw,,Mergesort
+L1 Data Write Miss,15380919,15380919,D1mw,,Mergesort
+LL Data Write Miss,2305364,2305364,DLmw,,Mergesort
+L1 Miss Sum,30593919,30593919,L1m,I1mr + D1mr + D1mw,Mergesort
+Last-level Miss Sum,4793100,4793100,LLm,ILmr + DLmr + DLmw,Mergesort
+Cycle Estimation,4750332457,4750332457,CEst,Ir + 10 Bm + 10 L1m + 20 Ge + 100 L2m + 100 LLm,Mergesort
+Instruction Fetch,3070398093,3070398093,Ir,,Quicksort
+L1 Instr. Fetch Miss,4,4,I1mr,,Quicksort
+LL Instr. Fetch Miss,4,4,ILmr,,Quicksort
+Data Read Access,513610247,513610247,Dr,,Quicksort
+L1 Data Read Miss,13155457,13155457,D1mr,,Quicksort
+LL Data Read Miss,1110909,1110909,DLmr,,Quicksort
+Data Write Access,371078230,371078230,Dw,,Quicksort
+L1 Data Write Miss,12706,12706,D1mw,,Quicksort
+LL Data Write Miss,10,10,DLmw,,Quicksort
+L1 Miss Sum,13168167,13168167,L1m,I1mr + D1mr + D1mw,Quicksort
+Last-level Miss Sum,1110923,1110923,LLm,ILmr + DLmr + DLmw,Quicksort
+Cycle Estimation,3313172063,3313172063,CEst,Ir + 10 Bm + 10 L1m + 20 Ge + 100 L2m + 100 LLm,Quicksort

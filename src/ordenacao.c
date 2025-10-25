@@ -255,7 +255,7 @@ void Heapifica(int i, int n, int *v) {
 void Heapsort_CD(int n, int *v, Dados *dados) {
     ConstroiHeap_CD(n, v, dados);
     for (int i = n - 1; i > 0; i--) {
-        Troca(v + 0, v + i);
+        Troca(v, v + i);
         Heapifica_CD(0, i, v, dados);
         dados->movimentacoes += 3;
     }
@@ -270,6 +270,7 @@ void ConstroiHeap_CD(int n, int *v, Dados *dados) {
 
 void Heapifica_CD(int i, int n, int *v, Dados *dados) {
     int chave = v[i], j = 2 * i + 1;
+    dados->movimentacoes++;
     while (j < n) {
         if (j < n - 1) {
             if (v[j] < v[j + 1]) j++;
